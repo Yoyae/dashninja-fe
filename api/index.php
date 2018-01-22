@@ -1,21 +1,21 @@
 <?php
 
 /*
-    This file is part of Dash Ninja.
-    https://github.com/elbereth/dashninja-fe
+    This file is part of Monoeci Ninja.
+    https://github.com/Yoyae/monoecininja-fe
 
-    Dash Ninja is free software: you can redistribute it and/or modify
+    Monoeci Ninja is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Dash Ninja is distributed in the hope that it will be useful,
+    Monoeci Ninja is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Dash Ninja.  If not, see <http://www.gnu.org/licenses/>.
+    along with Monoeci Ninja.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
@@ -52,7 +52,7 @@ $app->get('/api/version', function() {
   //Change the HTTP status
   $response->setStatusCode(200, "OK");
   $response->setJsonContent(array('status' => 'OK', 'data' => array("version" => array(
-      "api" => DASHNINJA_BEV,
+      "api" => MONOECININJA_BEV,
       "phalcon" => Phalcon\Version::get(),
       "php" => phpversion()
   ))));
@@ -197,7 +197,7 @@ $app->get('/api/blocks', function() use ($app,&$mysqli) {
   }
   else {
     $cacheserial = sha1(serialize($mnpubkeys).serialize($budgetids));
-    $cachefnam = CACHEFOLDER.sprintf("dashninja_blocks_%d_%d_%s_%d_%d_%d_%s",$testnet,$cachenodetail,$cacheinterval,count($mnpubkeys),$onlysuperblocks,count($budgetids),$cacheserial);
+    $cachefnam = CACHEFOLDER.sprintf("monoecininja_blocks_%d_%d_%s_%d_%d_%d_%s",$testnet,$cachenodetail,$cacheinterval,count($mnpubkeys),$onlysuperblocks,count($budgetids),$cacheserial);
     $cachefnamupdate = $cachefnam.".update";
     $cachevalid = (is_readable($cachefnam) && (((filemtime($cachefnam)+$cachetime)>=time()) || file_exists($cachefnamupdate)));
     if ($cachevalid) {
@@ -494,7 +494,7 @@ $app->get('/api/blocks', function() use ($app,&$mysqli) {
             'api' => array(
                 'version' => $apiversion,
                 'compat' => $apiversioncompat,
-                'bev' => 'bk='.DASHNINJA_BEV.".".$apiversion
+                'bev' => 'bk='.MONOECININJA_BEV.".".$apiversion
             )
                                                                          );
         //Change the HTTP status
@@ -693,7 +693,7 @@ $app->get('/api/blocks/superblocks', function() use ($app,&$mysqli) {
     }
     else {
         $cacheserial = sha1(serialize($proposalshash));
-        $cachefnam = CACHEFOLDER.sprintf("dashninja_blocks_superblockspayments_%d_%d_%s",$testnet,count($proposalshash),$cacheserial);
+        $cachefnam = CACHEFOLDER.sprintf("monoecininja_blocks_superblockspayments_%d_%d_%s",$testnet,count($proposalshash),$cacheserial);
         $cachefnamupdate = $cachefnam.".update";
         $cachevalid = (is_readable($cachefnam) && (((filemtime($cachefnam)+$cachetime)>=time()) || file_exists($cachefnamupdate)));
         if ($cachevalid) {
@@ -762,7 +762,7 @@ $app->get('/api/blocks/superblocks', function() use ($app,&$mysqli) {
                     'api' => array(
                         'version' => $apiversion,
                         'compat' => $apiversioncompat,
-                        'bev' => 'sb='.DASHNINJA_BEV.".".$apiversion
+                        'bev' => 'sb='.MONOECININJA_BEV.".".$apiversion
                     )
                 );
                 //Change the HTTP status
@@ -867,7 +867,7 @@ $app->get('/api/budgets', function() use ($app,&$mysqli) {
   }
   else {
     $cacheserial = sha1(serialize($budgetids).serialize($budgethashes));
-    $cachefnam = CACHEFOLDER.sprintf("dashninja_budgets_%d_%d_%d_%d_%s",$testnet,$onlyvalid,count($budgetids),count($budgethashes),$cacheserial);
+    $cachefnam = CACHEFOLDER.sprintf("monoecininja_budgets_%d_%d_%d_%d_%s",$testnet,$onlyvalid,count($budgetids),count($budgethashes),$cacheserial);
     $cachefnamupdate = $cachefnam.".update";
     $cachevalid = (is_readable($cachefnam) && (((filemtime($cachefnam)+120)>=time()) || file_exists($cachefnamupdate)));
     if ($cachevalid) {
@@ -993,7 +993,7 @@ $app->get('/api/budgets', function() use ($app,&$mysqli) {
             'api' => array(
                 'version' => $apiversion,
                 'compat' => $apiversioncompat,
-                'bev' => 'bu='.DASHNINJA_BEV.".".$apiversion
+                'bev' => 'bu='.MONOECININJA_BEV.".".$apiversion
             )
                      );
 
@@ -1050,7 +1050,7 @@ $app->get('/api/budgetsexpected', function() use ($app,&$mysqli) {
     $response->setJsonContent(array('status' => 'ERROR', 'messages' => $errmsg));
   }
   else {
-    $cachefnam = CACHEFOLDER . sprintf("dashninja_budgets_final_%d", $testnet);
+    $cachefnam = CACHEFOLDER . sprintf("monoecininja_budgets_final_%d", $testnet);
     $cachefnamupdate = $cachefnam . ".update";
     $cachetime = filemtime($cachefnam);
     $cachevalid = (is_readable($cachefnam) && ((($cachetime + 120) >= time()) || file_exists($cachefnamupdate)));
@@ -1112,7 +1112,7 @@ $app->get('/api/budgetsexpected', function() use ($app,&$mysqli) {
               'api' => array(
                   'version' => $apiversion,
                   'compat' => $apiversioncompat,
-                  'bev' => 'be=' . DASHNINJA_BEV . "." . $apiversion
+                  'bev' => 'be=' . MONOECININJA_BEV . "." . $apiversion
               )
           );
 
@@ -1204,7 +1204,7 @@ $app->get('/api/budgets/votes', function() use ($app,&$mysqli) {
   }
   else {
     $cacheserial = sha1(serialize($budgetid));
-    $cachefnam = CACHEFOLDER.sprintf("dashninja_budgets_votes_%d_%d_%s",$testnet,$onlyvalid,$cacheserial);
+    $cachefnam = CACHEFOLDER.sprintf("monoecininja_budgets_votes_%d_%d_%s",$testnet,$onlyvalid,$cacheserial);
     $cachefnamupdate = $cachefnam.".update";
     $cachetime = filemtime($cachefnam);
     $cachevalid = (is_readable($cachefnam) && ((($cachetime+120)>=time()) || file_exists($cachefnamupdate)));
@@ -1265,7 +1265,7 @@ $app->get('/api/budgets/votes', function() use ($app,&$mysqli) {
             'api' => array(
                 'version' => $apiversion,
                 'compat' => $apiversioncompat,
-                'bev' => 'bv='.DASHNINJA_BEV.".".$apiversion
+                'bev' => 'bv='.MONOECININJA_BEV.".".$apiversion
             )
         );
 
@@ -1375,7 +1375,7 @@ $app->get('/api/budgetsprojection', function() use ($app,&$mysqli) {
   }
   else {
     $cacheserial = sha1(serialize($budgetids).serialize($budgethashes));
-    $cachefnam = CACHEFOLDER.sprintf("dashninja_budgetsprojection_%d_%d_%d_%d_%s",$testnet,$onlyvalid,count($budgetids),count($budgethashes),$cacheserial);
+    $cachefnam = CACHEFOLDER.sprintf("monoecininja_budgetsprojection_%d_%d_%d_%d_%s",$testnet,$onlyvalid,count($budgetids),count($budgethashes),$cacheserial);
     $cachefnamupdate = $cachefnam.".update";
     $cachevalid = (is_readable($cachefnam) && (((filemtime($cachefnam)+120)>=time()) || file_exists($cachefnamupdate)));
     if ($cachevalid) {
@@ -1501,7 +1501,7 @@ $app->get('/api/budgetsprojection', function() use ($app,&$mysqli) {
             'api' => array(
                 'version' => $apiversion,
                 'compat' => $apiversioncompat,
-                'bev' => 'bp='.DASHNINJA_BEV.".".$apiversion
+                'bev' => 'bp='.MONOECININJA_BEV.".".$apiversion
             )
         );
 
@@ -1609,7 +1609,7 @@ $app->get('/api/governanceproposals', function() use ($app,&$mysqli) {
     }
     else {
         $cacheserial = sha1(serialize($proposalsnames).serialize($proposalshashes));
-        $cachefnam = CACHEFOLDER.sprintf("dashninja_governanceproposals_%d_%d_%d_%d_%s",$testnet,$onlyvalid,count($proposalsnames),count($proposalshashes),$cacheserial);
+        $cachefnam = CACHEFOLDER.sprintf("monoecininja_governanceproposals_%d_%d_%d_%d_%s",$testnet,$onlyvalid,count($proposalsnames),count($proposalshashes),$cacheserial);
         $cachefnamupdate = $cachefnam.".update";
         $cachevalid = (is_readable($cachefnam) && (((filemtime($cachefnam)+120)>=time()) || file_exists($cachefnamupdate)));
         if ($cachevalid) {
@@ -1767,7 +1767,7 @@ $app->get('/api/governanceproposals', function() use ($app,&$mysqli) {
                     'api' => array(
                         'version' => $apiversion,
                         'compat' => $apiversioncompat,
-                        'bev' => 'gp='.DASHNINJA_BEV.".".$apiversion
+                        'bev' => 'gp='.MONOECININJA_BEV.".".$apiversion
                     )
                 );
 
@@ -1817,7 +1817,7 @@ $app->get('/api/governanceproposals/votelimit', function() use ($app,&$mysqli) {
         }
     }
 
-    $cachefnam = CACHEFOLDER.sprintf("dashninja_governanceproposals_votelimit_%d",$testnet);
+    $cachefnam = CACHEFOLDER.sprintf("monoecininja_governanceproposals_votelimit_%d",$testnet);
     $cachefnamupdate = $cachefnam.".update";
     $cachevalid = (is_readable($cachefnam) && (((filemtime($cachefnam)+120)>=time()) || file_exists($cachefnamupdate)));
     if ($cachevalid) {
@@ -1897,7 +1897,7 @@ $app->get('/api/governanceproposals/votelimit', function() use ($app,&$mysqli) {
             'api' => array(
                 'version' => $apiversion,
                 'compat' => $apiversioncompat,
-                'bev' => 'gpvl=' . DASHNINJA_BEV . "." . $apiversion
+                'bev' => 'gpvl=' . MONOECININJA_BEV . "." . $apiversion
             )
         );
 
@@ -1978,7 +1978,7 @@ $app->get('/api/governanceproposals/votes', function() use ($app,&$mysqli) {
     }
     else {
         $cacheserial = sha1(serialize($budgetid));
-        $cachefnam = CACHEFOLDER.sprintf("dashninja_governanceproposals_votes_%d_%s",$testnet,$cacheserial);
+        $cachefnam = CACHEFOLDER.sprintf("monoecininja_governanceproposals_votes_%d_%s",$testnet,$cacheserial);
         $cachefnamupdate = $cachefnam.".update";
         $cachetime = filemtime($cachefnam);
         $cachevalid = (is_readable($cachefnam) && ((($cachetime+120)>=time()) || file_exists($cachefnamupdate)));
@@ -2034,7 +2034,7 @@ $app->get('/api/governanceproposals/votes', function() use ($app,&$mysqli) {
                     'api' => array(
                         'version' => $apiversion,
                         'compat' => $apiversioncompat,
-                        'bev' => 'gpv='.DASHNINJA_BEV.".".$apiversion
+                        'bev' => 'gpv='.MONOECININJA_BEV.".".$apiversion
                     )
                 );
 
@@ -2118,7 +2118,7 @@ $app->get('/api/governancetriggers', function() use ($app,&$mysqli) {
         $response->setJsonContent(array('status' => 'ERROR', 'messages' => $errmsg));
     }
     else {
-        $cachefnam = CACHEFOLDER.sprintf("dashninja_governancetriggers_%d_%d_%d_%d",$testnet,$onlyvalid,$onlyfuture,$afterblockheight);
+        $cachefnam = CACHEFOLDER.sprintf("monoecininja_governancetriggers_%d_%d_%d_%d",$testnet,$onlyvalid,$onlyfuture,$afterblockheight);
         $cachefnamupdate = $cachefnam.".update";
         $cachevalid = (is_readable($cachefnam) && (((filemtime($cachefnam)+120)>=time()) || file_exists($cachefnamupdate)));
         if ($cachevalid) {
@@ -2198,7 +2198,7 @@ $app->get('/api/governancetriggers', function() use ($app,&$mysqli) {
                     'api' => array(
                         'version' => $apiversion,
                         'compat' => $apiversioncompat,
-                        'bev' => 'gt='.DASHNINJA_BEV.".".$apiversion
+                        'bev' => 'gt='.MONOECININJA_BEV.".".$apiversion
                     )
                 );
 
@@ -2286,7 +2286,7 @@ $app->get('/api/nodes', function() use ($app,&$mysqli) {
 //   ips=JSON encoded list of ip:port
 //   vins=JSON encoded list of output-index
 //   protocol=latest|integer (optional, then value=latest)
-//   prev12=0|1 (optional, respond as pre v0.12 Dash Ninja API, obsolete)
+//   prev12=0|1 (optional, respond as pre v0.12 Monoeci Ninja API, obsolete)
 // Each following enabled parameter will slow down the query, only activate if you really need the data :
 //   balance=0|1 (optional, add balance info)
 //   donation=0|1 (optional, add donation info, obsolete)
@@ -2338,7 +2338,7 @@ $app->get('/api/masternodes', function() use ($app,&$mysqli) {
   }
 
   if ($protocol == -1) {
-    $cachefnam = CACHEFOLDER.sprintf("dashninja_maxprotocol_%d",$testnet);
+    $cachefnam = CACHEFOLDER.sprintf("monoecininja_maxprotocol_%d",$testnet);
     $cachevalid = (is_readable($cachefnam) && ((filemtime($cachefnam)+300)>=time()));
     if ($cachevalid) {
       $protocol = unserialize(file_get_contents($cachefnam));
@@ -2989,7 +2989,7 @@ $app->get('/api/tablevars', function() use ($app,&$mysqli) {
     $response->setJsonContent(array('status' => 'ERROR', 'messages' => array('Payload (or CONTENT_LENGTH) is missing')));
   }
   else {
-    $cachefnam = CACHEFOLDER."dashninja_tablevars";
+    $cachefnam = CACHEFOLDER."monoecininja_tablevars";
     $cachefnamupdate = $cachefnam.".update";
     $cachevalid = (is_readable($cachefnam) && (((filemtime($cachefnam)+60)>=time()) || file_exists($cachefnamupdate)));
     if ($cachevalid) {
@@ -3018,7 +3018,7 @@ $app->get('/api/tablevars', function() use ($app,&$mysqli) {
             'api' => array(
                 'version' => $apiversion,
                 'compat' => $apiversioncompat,
-                'bev' => 'tv='.DASHNINJA_BEV.".".$apiversion
+                'bev' => 'tv='.MONOECININJA_BEV.".".$apiversion
             )
         );
 

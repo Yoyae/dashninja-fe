@@ -1,42 +1,42 @@
 <?php
 
 /*
-    This file is part of Dash Ninja.
-    https://github.com/elbereth/dashninja-fe
+    This file is part of Monoeci Ninja.
+    https://github.com/Yoyae/monoecininja-fe
 
-    Dash Ninja is free software: you can redistribute it and/or modify
+    Monoeci Ninja is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Dash Ninja is distributed in the hope that it will be useful,
+    Monoeci Ninja is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Dash Ninja.  If not, see <http://www.gnu.org/licenses/>.
+    along with Monoeci Ninja.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
 // Copy this file to config.inc.php and change configuration below
 
 // Path to the cache folder (files will be created in there, best if outside www access)
-DEFINE('CACHEFOLDER',"/home/dashninja/cache/");
+DEFINE('CACHEFOLDER',"/home/monoecininja/cache/");
 
 // Path to the data folder (must be accessible by the website)
-DEFINE('DATAFOLDER',"/home/dashninja/www/data/");
+DEFINE('DATAFOLDER',"/home/monoecininja/www/data/");
 
 // Semaphore for the cron script of masternodefulllist
-DEFINE('DMN_CRON_MNFL_SEMAPHORE','/home/dashninja/dash-mnwww-cron-mnfl.pid');
+DEFINE('DMN_CRON_MNFL_SEMAPHORE','/home/monoecininja/monoeci-mnwww-cron-mnfl.pid');
 
 // Semaphore for the cron script of block24h
-DEFINE('DMN_CRON_BK24_SEMAPHORE','/home/dashninja/dash-mnwww-cron-bk24.pid');
+DEFINE('DMN_CRON_BK24_SEMAPHORE','/home/monoecininja/monoeci-mnwww-cron-bk24.pid');
 
-// Indicate here all MySQL configuration to connect to Dash Ninja Database
-DEFINE('MYSQLUSER',"dashninja-api");
+// Indicate here all MySQL configuration to connect to Monoeci Ninja Database
+DEFINE('MYSQLUSER',"monoecininja-api");
 DEFINE('MYSQLPASS',"anyrandompassword");
-DEFINE('MYSQLDATABASE',"dashninja");
+DEFINE('MYSQLDATABASE',"monoecininja");
 DEFINE('MYSQLHOST',"localhost");
 
 ?>

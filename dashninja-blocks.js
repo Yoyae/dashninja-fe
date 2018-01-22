@@ -1,26 +1,25 @@
 /*
- This file is part of Dash Ninja.
- https://github.com/elbereth/dashninja-fe
+ This file is part of Monoeci Ninja.
+ https://github.com/Yoyae/monoecininja-fe
 
- Dash Ninja is free software: you can redistribute it and/or modify
+ Monoeci Ninja is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
- Dash Ninja is distributed in the hope that it will be useful,
+ Monoeci Ninja is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Dash Ninja.  If not, see <http://www.gnu.org/licenses/>.
+ along with Monoeci Ninja.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
-// Dash Ninja Front-End (dashninja-fe) - Blocks (v2)
-// By elberethzone / https://dashtalk.org/members/elbereth.175/
+// Monoeci Ninja Front-End (monoecininja-fe) - Blocks (v2)
 
-var dashninjaversion = '2.5.1';
+var monoecininjaversion = '2.5.1';
 var tableBlocks = null;
 var tablePerVersion = null;
 var tablePerMiner = null;
@@ -29,28 +28,28 @@ var maxProtocol = -1;
 
 $.fn.dataTable.ext.errMode = 'throw';
 
-if (typeof dashninjatestnet === 'undefined') {
-  var dashninjatestnet = 0;
+if (typeof monoecininjatestnet === 'undefined') {
+  var monoecininjatestnet = 0;
 }
-if (typeof dashninjatestnethost !== 'undefined') {
-  if (window.location.hostname == dashninjatestnethost) {
-    dashninjatestnet = 1;
-    $('a[name=menuitemexplorer]').attr("href", "https://"+dashninjatestnetexplorer);
+if (typeof monoecininjatestnethost !== 'undefined') {
+  if (window.location.hostname == monoecininjatestnethost) {
+    monoecininjatestnet = 1;
+    $('a[name=menuitemexplorer]').attr("href", "https://"+monoecininjatestnetexplorer);
   }
 }
 
 
-if (typeof dashninjacoin === 'undefined') {
-  var dashninjacoin = ['',''];
+if (typeof monoecininjacoin === 'undefined') {
+  var monoecininjacoin = ['',''];
 }
-if (typeof dashninjaaddressexplorer === 'undefined') {
-  var dashninjaaddressexplorer = [[],[]];
+if (typeof monoecininjaaddressexplorer === 'undefined') {
+  var monoecininjaaddressexplorer = [[],[]];
 }
-if (typeof dashninjaaddressexplorer[0] === 'undefined') {
-  dashninjaaddressexplorer[0] = [];
+if (typeof monoecininjaaddressexplorer[0] === 'undefined') {
+  monoecininjaaddressexplorer[0] = [];
 }
-if (typeof dashninjaaddressexplorer[1] === 'undefined') {
-  dashninjaaddressexplorer[1] = [];
+if (typeof monoecininjaaddressexplorer[1] === 'undefined') {
+  monoecininjaaddressexplorer[1] = [];
 }
 
 function tableBlocksRefresh(){
@@ -71,20 +70,20 @@ function tableBlockFilterReset() {
 
 $(document).ready(function(){
 
-  $('#dashninjajsversion').text( dashninjaversion ).addClass("label-info").removeClass("label-danger");
+  $('#monoecininjajsversion').text( monoecininjaversion ).addClass("label-info").removeClass("label-danger");
 
-  if (dashninjatestnet == 1) {
+  if (monoecininjatestnet == 1) {
     $('#testnetalert').show();
   }
 
-  if (typeof dashninjator !== 'undefined') {
-      $('a[name=dashninjatorurl]').attr("href", "http://"+dashninjator+"/blocks.html");
-      $('span[name=dashninjatordisplay]').show();
+  if (typeof monoecininjator !== 'undefined') {
+      $('a[name=monoecininjatorurl]').attr("href", "http://"+monoecininjator+"/blocks.html");
+      $('span[name=monoecininjatordisplay]').show();
   }
 
-  if (typeof dashninjai2p !== 'undefined') {
-      $('a[name=dashninjai2purl]').attr("href", "http://" + dashninjai2p + "/blocks.html");
-      $('span[name=dashninjai2pdisplay]').show();
+  if (typeof monoecininjai2p !== 'undefined') {
+      $('a[name=monoecininjai2purl]').attr("href", "http://" + monoecininjai2p + "/blocks.html");
+      $('span[name=monoecininjai2pdisplay]').show();
   }
 
    tablePerVersion = $('#perversiontable').dataTable( {
@@ -304,8 +303,8 @@ $(document).ready(function(){
 
    $('#blockstable').on('xhr.dt', function ( e, settings, json ) {
         // Show global stats
-        $('#globalsupplyamount').text( addCommas( json.data.stats.global.SupplyAmount) +' '+dashninjacoin[dashninjatestnet] );
-        $('#globalmnamount').text( addCommas( json.data.stats.global.MNPaymentsAmount) +' '+dashninjacoin[dashninjatestnet] );
+        $('#globalsupplyamount').text( addCommas( json.data.stats.global.SupplyAmount) +' '+monoecininjacoin[monoecininjatestnet] );
+        $('#globalmnamount').text( addCommas( json.data.stats.global.MNPaymentsAmount) +' '+monoecininjacoin[monoecininjatestnet] );
         $('#globalpayed').text( (Math.round( json.data.stats.global.RatioBlocksPayed * 10000 ) / 100) +'%' );
         $('#globalcorrectlypayed').text( (Math.round( json.data.stats.global.RatioBlocksPayedCorrectly * 10000 ) / 100) +'%' );
         $('#globalcurrentmnratio').text( (Math.round( json.data.blocks[0].BlockMNValueRatioExpected * 1000 ) / 10) );
@@ -343,7 +342,7 @@ $(document).ready(function(){
         $('#blockstableLR').text( n + ' ' + time );
       } );
    tableBlocks = $('#blockstable').dataTable( {
-        ajax: { url: "/data/blocks24h-"+dashninjatestnet+".json",
+        ajax: { url: "/data/blocks24h-"+monoecininjatestnet+".json",
                 dataSrc: 'data.blocks' },
         lengthMenu: [ [20, 70, 136, 272, -1], ["20 (~1h)", "70 (~3h)", "136 (~6h)", "272 (~12h)", "All (24h)"] ],
         pageLength: 20,
@@ -362,8 +361,8 @@ $(document).ready(function(){
             { data: null, render: function ( data, type, row ) {
                var outtxt = data.BlockId;
                if (type != 'sort') {
-                 if (dashninjablockexplorer[dashninjatestnet].length > 0) {
-                   outtxt = '<a href="'+dashninjablockexplorer[dashninjatestnet][0][0].replace('%%b%%',data.BlockHash)+'">'+data.BlockId+'</a>';
+                 if (monoecininjablockexplorer[monoecininjatestnet].length > 0) {
+                   outtxt = '<a href="'+monoecininjablockexplorer[monoecininjatestnet][0][0].replace('%%b%%',data.BlockHash)+'">'+data.BlockId+'</a>';
                  }
                }
                return outtxt;
@@ -397,10 +396,10 @@ $(document).ready(function(){
                             return '<a href="/governance.html#superblocks">' + data.SuperBlockBudgetPayees + ' proposal(s) paid</a>';
                         } else {
                             if (data.IsSuperBlock) {
-                                return '<a href="' + dashninjabudgetdetail[dashninjatestnet].replace('%%b%%',encodeURIComponent(data.SuperBlockBudgetName)) + '">' + data.SuperBlockBudgetName + '</a>';
+                                return '<a href="' + monoecininjabudgetdetail[monoecininjatestnet].replace('%%b%%',encodeURIComponent(data.SuperBlockBudgetName)) + '">' + data.SuperBlockBudgetName + '</a>';
                             }
                             else {
-                                return '<a href="' + dashninjamasternodemonitoring[dashninjatestnet].replace('%%p%%', data.BlockMNPayee) + '">' + data.BlockMNPayee + '</a>';
+                                return '<a href="' + monoecininjamasternodemonitoring[monoecininjatestnet].replace('%%p%%', data.BlockMNPayee) + '">' + data.BlockMNPayee + '</a>';
                             }
                         }
                     }
@@ -410,7 +409,7 @@ $(document).ready(function(){
             { data: null, render: function ( data, type, row ) {
                 if (data.IsSuperBlock) {
                     if (data.BlockMNProtocol == 0) {
-                        return "Dash 0.12.0.44+";
+                        return "Monoeci 0.12.0.44+";
                     }
                     else {
                         return dataProtocolDesc[data.BlockMNProtocol];

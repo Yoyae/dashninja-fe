@@ -1,71 +1,71 @@
 /*
- This file is part of Dash Ninja.
- https://github.com/elbereth/dashninja-fe
+ This file is part of Monoeci Ninja.
+ https://github.com/Yoyae/monoecininja-fe
 
- Dash Ninja is free software: you can redistribute it and/or modify
+ Monoeci Ninja is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
- Dash Ninja is distributed in the hope that it will be useful,
+ Monoeci Ninja is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Dash Ninja.  If not, see <http://www.gnu.org/licenses/>.
+ along with Monoeci Ninja.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
 // Either indicate if we are we on testnet (=1) or on mainnet (=0)
-//var dashninjatestnet = 0;
+//var monoecininjatestnet = 0;
 // OR indicate the hostname for testnet (if the hostname the page is running is equal to this, it will switch to testnet)
-var dashninjatestnethost = 'test.dashninja.pl';
-var dashninjatestnetexplorer = 'test.explorer.dashninja.pl';
+var monoecininjatestnethost = 'test.monoecininja.pl';
+var monoecininjatestnetexplorer = 'test.explorer.monoecininja.pl';
 
 // Tor onion hostname
-var dashninjator = 'seuhd5sihasshuqh.onion';
-var dashninjai2p = 'dzjzoefy7fx57h5xkdknikvfv3ckbxu2bx5wryn6taud343g2jma.b32.i2p';
+var monoecininjator = 'seuhd5sihasshuqh.onion';
+var monoecininjai2p = 'dzjzoefy7fx57h5xkdknikvfv3ckbxu2bx5wryn6taud343g2jma.b32.i2p';
 
 // Coin logos
-var dashninjacoin = ['DASH','tDASH'];
+var monoecininjacoin = ['MONOECI','tMONOECI'];
 
 // URLs
 // Block info
-// ["https://explorer.dashninja.pl/block/%%b%%","elberethzone's Dash Blockchain Explorer"]
-var dashninjablockexplorer = [[["http://chainz.cryptoid.info/dash/block.dws?%%b%%.htm","cryptoID Dash Blockchain Explorer"]],
-                          [["https://test.explorer.dashninja.pl/block/%%b%%","Dash Ninja Testnet Blockchain Explorer"],
-                           ["http://test.explorer.darkcoin.qa/block/%%b%%","Official Testnet Dash Blockchain Explorer"],
-                           ["http://test.insight.masternode.io:3001/block/%%b%%","coingun's Testnet Dash Blockchain Explorer"]]];
+// ["https://explorer.monoecininja.pl/block/%%b%%","Monoeci Blockchain Explorer"] TODO
+var monoecininjablockexplorer = [[["http://chainz.cryptoid.info/monoeci/block.dws?%%b%%.htm","cryptoID Monoeci Blockchain Explorer"]],
+                          [["https://test.explorer.monoecininja.pl/block/%%b%%","Monoeci Ninja Testnet Blockchain Explorer"],
+                           ["http://test.explorer.darkcoin.qa/block/%%b%%","Official Testnet Monoeci Blockchain Explorer"],
+                           ["http://test.insight.masternode.io:3001/block/%%b%%","coingun's Testnet Monoeci Blockchain Explorer"]]];
 
 // Address info
-var dashninjamndetail = [[["/mndetails.html?mnpubkey=%%a%%","Dash Ninja Masternode Detail"],
-                          ["https://www.dashcentral.org/masternodes/%%a%%","Dash Central Masternode Monitoring"]],
-                         [["/mndetails.html?mnpubkey=%%a%%","Dash Ninja Testnet Masternode Detail"]]];
-var dashninjamndetailvin = [[["/mndetails.html?mnoutput=%%a%%","Dash Ninja Masternode Detail"]],
-                            [["/mndetails.html?mnoutput=%%a%%","Dash Ninja Testnet Masternode Detail"]]];
+var monoecininjamndetail = [[["/mndetails.html?mnpubkey=%%a%%","Monoeci Ninja Masternode Detail"],
+                          ["https://www.monoecicentral.org/masternodes/%%a%%","Monoeci Central Masternode Monitoring"]],
+                         [["/mndetails.html?mnpubkey=%%a%%","Monoeci Ninja Testnet Masternode Detail"]]];
+var monoecininjamndetailvin = [[["/mndetails.html?mnoutput=%%a%%","Monoeci Ninja Masternode Detail"]],
+                            [["/mndetails.html?mnoutput=%%a%%","Monoeci Ninja Testnet Masternode Detail"]]];
 
-// ["https://explorer.dashninja.pl/address/%%a%%","elberethzone's Dash Blockchain Explorer"],
-var dashninjaaddressexplorer = [[["https://chainz.cryptoid.info/dash/address.dws?%%a%%.htm","cryptoID Dash Blockchain Explorer"]],
-                                [["https://test.explorer.dashninja.pl/address/%%a%%","Dash Ninja Testnet Blockchain Explorer"],
-                                 ["http://test.explorer.darkcoin.qa/address/%%a%%","Official Testnet Dash Blockchain Explorer"],
-                                 ["http://test.insight.masternode.io:3001/address/%%a%%","coingun's Testnet Dash Blockchain Explorer"]]];
-// ["http://explorer.dashninja.pl/tx/%%a%%","elberethzone's Dash Blockchain Explorer"],
-var dashninjatxexplorer = [[["https://chainz.cryptoid.info/dash/tx.dws?%%a%%.htm","cryptoID Dash Blockchain Explorer"]],
-                           [["http://test.explorer.dashninja.pl/tx/%%a%%","Dash Ninja Testnet Blockchain Explorer"],
-                            ["http://test.explorer.darkcoin.qa/tx/%%a%%","Official Testnet Dash Blockchain Explorer"]]];
+// ["https://explorer.monoecininja.pl/address/%%a%%","Monoeci Blockchain Explorer"],
+var monoecininjaaddressexplorer = [[["https://chainz.cryptoid.info/monoeci/address.dws?%%a%%.htm","cryptoID Monoeci Blockchain Explorer"]],
+                                [["https://test.explorer.monoecininja.pl/address/%%a%%","Monoeci Ninja Testnet Blockchain Explorer"],
+                                 ["http://test.explorer.darkcoin.qa/address/%%a%%","Official Testnet Monoeci Blockchain Explorer"],
+                                 ["http://test.insight.masternode.io:3001/address/%%a%%","coingun's Testnet Monoeci Blockchain Explorer"]]];
+// ["http://explorer.monoecininja.pl/tx/%%a%%","Monoeci Blockchain Explorer"],
+var monoecininjatxexplorer = [[["https://chainz.cryptoid.info/monoeci/tx.dws?%%a%%.htm","cryptoID Monoeci Blockchain Explorer"]],
+                           [["http://test.explorer.monoecininja.pl/tx/%%a%%","Monoeci Ninja Testnet Blockchain Explorer"],
+                            ["http://test.explorer.darkcoin.qa/tx/%%a%%","Official Testnet Monoeci Blockchain Explorer"]]];
 
 // Search query
-// ["https://explorer.dashninja.pl/search?q=%%q%%","elberethzone's Dash Blockchain Explorer"],
-var dashninjaqueryexplorer = [[["https://chainz.cryptoid.info/dash/search.dws?q=%%q%%","cryptoID Dash Blockchain Explorer"]],
-                            [["https://test.explorer.dashninja.pl/search?q=%%q%%","Dash Ninja Testnet Blockchain Explorer"],
-                             ["http://test.explorer.darkcoin.qa/search?q=%%q%%","Official Testnet Dash Blockchain Explorer"]]];
+// ["https://explorer.monoecininja.pl/search?q=%%q%%","Monoeci Blockchain Explorer"],
+var monoecininjaqueryexplorer = [[["https://chainz.cryptoid.info/monoeci/search.dws?q=%%q%%","cryptoID Monoeci Blockchain Explorer"]],
+                            [["https://test.explorer.monoecininja.pl/search?q=%%q%%","Monoeci Ninja Testnet Blockchain Explorer"],
+                             ["http://test.explorer.darkcoin.qa/search?q=%%q%%","Official Testnet Monoeci Blockchain Explorer"]]];
 
-var dashninjamasternodemonitoring = ["/masternodes.html?mnregexp=%%p%%#mnversions","/masternodes.html?mnregexp=%%p%%#mnversions"];
+var monoecininjamasternodemonitoring = ["/masternodes.html?mnregexp=%%p%%#mnversions","/masternodes.html?mnregexp=%%p%%#mnversions"];
 
-var dashninjabudgetdetail = ["/budgetdetails.html?budgetid=%%b%%","/budgetdetails.html?budgetid=%%b%%"];
+var monoecininjabudgetdetail = ["/budgetdetails.html?budgetid=%%b%%","/budgetdetails.html?budgetid=%%b%%"];
 
-var dashninjagovernanceproposaldetail = ["/proposaldetails.html?proposalhash=%%b%%","/proposaldetails.html?proposalhash=%%b%%"];
+var monoecininjagovernanceproposaldetail = ["/proposaldetails.html?proposalhash=%%b%%","/proposaldetails.html?proposalhash=%%b%%"];
 
 // Blocks per day
-var dashblocksperday = 553;
+var monoeciblocksperday = 553;

@@ -1,30 +1,29 @@
 /*
- This file is part of Dash Ninja.
- https://github.com/elbereth/dashninja-fe
+ This file is part of Monoeci Ninja.
+ https://github.com/Yoyae/monoecininja-fe
 
- Dash Ninja is free software: you can redistribute it and/or modify
+ Monoeci Ninja is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
- Dash Ninja is distributed in the hope that it will be useful,
+ Monoeci Ninja is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Dash Ninja.  If not, see <http://www.gnu.org/licenses/>.
+ along with Monoeci Ninja.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
-// Dash Ninja Front-End (dashninja-fe) - Budget Details
-// By elberethzone / https://dashtalk.org/members/elbereth.175/
+// Monoeci Ninja Front-End (monoecininja-fe) - Budget Details
 
-var dashninjaversion = '1.2.3';
+var monoecininjaversion = '1.2.3';
 var tableVotes = null;
 var tableSuperBlocks = null;
-var dashoutputregexp = /^[a-z0-9]{64}-[0-9]+$/;
-var dashbudgetregexp = /^[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890 .,;_\-/:?@()]+$/;
+var monoecioutputregexp = /^[a-z0-9]{64}-[0-9]+$/;
+var monoecibudgetregexp = /^[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890 .,;_\-/:?@()]+$/;
 var budgetid = '';
 var budgethash = '';
 var latestblock = null;
@@ -34,63 +33,63 @@ var currentstats = null;
 
 $.fn.dataTable.ext.errMode = 'throw';
 
-if (typeof dashninjatestnet === 'undefined') {
-  var dashninjatestnet = 0;
+if (typeof monoecininjatestnet === 'undefined') {
+  var monoecininjatestnet = 0;
 }
-if (typeof dashninjatestnethost !== 'undefined') {
-  if (window.location.hostname == dashninjatestnethost) {
-    dashninjatestnet = 1;
-    $('a[name=menuitemexplorer]').attr("href", "https://"+dashninjatestnetexplorer);
+if (typeof monoecininjatestnethost !== 'undefined') {
+  if (window.location.hostname == monoecininjatestnethost) {
+    monoecininjatestnet = 1;
+    $('a[name=menuitemexplorer]').attr("href", "https://"+monoecininjatestnetexplorer);
   }
 }
 
-if (typeof dashninjacoin === 'undefined') {
-  var dashninjacoin = ['',''];
+if (typeof monoecininjacoin === 'undefined') {
+  var monoecininjacoin = ['',''];
 }
-if (typeof dashninjaaddressexplorer === 'undefined') {
-  var dashninjaaddressexplorer = [[],[]];
+if (typeof monoecininjaaddressexplorer === 'undefined') {
+  var monoecininjaaddressexplorer = [[],[]];
 }
-if (typeof dashninjaaddressexplorer[0] === 'undefined') {
-  dashninjaaddressexplorer[0] = [];
+if (typeof monoecininjaaddressexplorer[0] === 'undefined') {
+  monoecininjaaddressexplorer[0] = [];
 }
-if (typeof dashninjaaddressexplorer[1] === 'undefined') {
-  dashninjaaddressexplorer[1] = [];
-}
-
-if (typeof dashninjamndetailvin === 'undefined') {
-    var dashninjamndetailvin = [[],[]];
-}
-if (typeof dashninjamndetailvin[0] === 'undefined') {
-    dashninjamndetailvin[0] = [];
-}
-if (typeof dashninjamndetailvin[1] === 'undefined') {
-    dashninjamndetailvin[1] = [];
+if (typeof monoecininjaaddressexplorer[1] === 'undefined') {
+  monoecininjaaddressexplorer[1] = [];
 }
 
-if (typeof dashninjaaddressexplorer === 'undefined') {
-    var dashninjaaddressexplorer = [[],[]];
+if (typeof monoecininjamndetailvin === 'undefined') {
+    var monoecininjamndetailvin = [[],[]];
 }
-if (typeof dashninjaaddressexplorer[0] === 'undefined') {
-    dashninjaaddressexplorer[0] = [];
+if (typeof monoecininjamndetailvin[0] === 'undefined') {
+    monoecininjamndetailvin[0] = [];
 }
-if (typeof dashninjaaddressexplorer[1] === 'undefined') {
-    dashninjaaddressexplorer[1] = [];
+if (typeof monoecininjamndetailvin[1] === 'undefined') {
+    monoecininjamndetailvin[1] = [];
 }
 
-if (typeof dashninjatxexplorer === 'undefined') {
-    var dashninjatxexplorer = [[],[]];
+if (typeof monoecininjaaddressexplorer === 'undefined') {
+    var monoecininjaaddressexplorer = [[],[]];
 }
-if (typeof dashninjatxexplorer[0] === 'undefined') {
-    dashninjatxexplorer[0] = [];
+if (typeof monoecininjaaddressexplorer[0] === 'undefined') {
+    monoecininjaaddressexplorer[0] = [];
 }
-if (typeof dashninjatxexplorer[1] === 'undefined') {
-    dashninjatxexplorer[1] = [];
+if (typeof monoecininjaaddressexplorer[1] === 'undefined') {
+    monoecininjaaddressexplorer[1] = [];
+}
+
+if (typeof monoecininjatxexplorer === 'undefined') {
+    var monoecininjatxexplorer = [[],[]];
+}
+if (typeof monoecininjatxexplorer[0] === 'undefined') {
+    monoecininjatxexplorer[0] = [];
+}
+if (typeof monoecininjatxexplorer[1] === 'undefined') {
+    monoecininjatxexplorer[1] = [];
 }
 
 function budgetdetailsRefresh(useHash){
   console.log("DEBUG: budgetdetailsRefresh starting");
   $('#budgetinfoLR').html( '<i class="fa fa-spinner fa-pulse"></i> Refreshing <i class="fa fa-spinner fa-pulse"></i>' );
-  var query = '/api/budgets?testnet='+dashninjatestnet;
+  var query = '/api/budgets?testnet='+monoecininjatestnet;
   if (useHash) {
     query += '&budgethashes=["'+encodeURIComponent(budgethash)+'"]';
   }
@@ -143,14 +142,14 @@ function budgetdetailsRefresh(useHash){
        $('#budgethash4').text( data.data.budgets[0].Hash );
 
        var outtxt = "";
-       if (dashninjatxexplorer[dashninjatestnet].length > 0) {
+       if (monoecininjatxexplorer[monoecininjatestnet].length > 0) {
            var ix = 0;
-           for ( var i=0, ien=dashninjatxexplorer[dashninjatestnet].length ; i<ien ; i++ ) {
+           for ( var i=0, ien=monoecininjatxexplorer[monoecininjatestnet].length ; i<ien ; i++ ) {
                if (ix == 0) {
-                   outtxt += '<a href="'+dashninjatxexplorer[dashninjatestnet][0][0].replace('%%a%%',data.data.budgets[0].FeeHash)+'">'+data.data.budgets[0].FeeHash+'</a>';
+                   outtxt += '<a href="'+monoecininjatxexplorer[monoecininjatestnet][0][0].replace('%%a%%',data.data.budgets[0].FeeHash)+'">'+data.data.budgets[0].FeeHash+'</a>';
                }
                else {
-                   outtxt += '<a href="'+dashninjatxexplorer[dashninjatestnet][i][0].replace('%%a%%',data.data.budgets[0].FeeHash)+'">['+ix+']</a>';
+                   outtxt += '<a href="'+monoecininjatxexplorer[monoecininjatestnet][i][0].replace('%%a%%',data.data.budgets[0].FeeHash)+'">['+ix+']</a>';
                }
                ix++;
            }
@@ -167,22 +166,22 @@ function budgetdetailsRefresh(useHash){
        $('#budgeturl').html( '<a href="'+url+'">'+data.data.budgets[0].URL+'</a>' );
        $('#budgetblockstart').text( data.data.budgets[0].BlockStart );
        $('#budgetblockend').text( data.data.budgets[0].BlockEnd );
-       $('#budgetmonthlyamount').html( addCommas( data.data.budgets[0].MonthlyPayment.toFixed(3) )+' '+dashninjacoin[dashninjatestnet] + ' (<span id="budgetmonthlyamountusd">???</span> USD) (<span id="budgetmonthlyamounteur">???</span> EUR)');
-       $('#budgettotalamount').html( addCommas( data.data.budgets[0].TotalPayment.toFixed(3) )+' '+dashninjacoin[dashninjatestnet] + ' (<span id="budgettotalamountusd">???</span> USD) (<span id="budgettotalamounteur">???</span> EUR)' );
+       $('#budgetmonthlyamount').html( addCommas( data.data.budgets[0].MonthlyPayment.toFixed(3) )+' '+monoecininjacoin[monoecininjatestnet] + ' (<span id="budgetmonthlyamountusd">???</span> USD) (<span id="budgetmonthlyamounteur">???</span> EUR)');
+       $('#budgettotalamount').html( addCommas( data.data.budgets[0].TotalPayment.toFixed(3) )+' '+monoecininjacoin[monoecininjatestnet] + ' (<span id="budgettotalamountusd">???</span> USD) (<span id="budgettotalamounteur">???</span> EUR)' );
        $('#budgettotalpayments').text( data.data.budgets[0].TotalPaymentCount );
        $('#budgetremainingpayments').text( data.data.budgets[0].RemainingPaymentCount );
        $('#budgetyes').text( data.data.budgets[0].Yeas );
        $('#budgetno').text( data.data.budgets[0].Nays );
 
        outtxt = "";
-           if (dashninjaaddressexplorer[dashninjatestnet].length > 0) {
+           if (monoecininjaaddressexplorer[monoecininjatestnet].length > 0) {
                var ix = 0;
-               for ( var i=0, ien=dashninjaaddressexplorer[dashninjatestnet].length ; i<ien ; i++ ) {
+               for ( var i=0, ien=monoecininjaaddressexplorer[monoecininjatestnet].length ; i<ien ; i++ ) {
                    if (ix == 0) {
-                       outtxt += '<a href="'+dashninjaaddressexplorer[dashninjatestnet][0][0].replace('%%a%%',data.data.budgets[0].PaymentAddress)+'">'+data.data.budgets[0].PaymentAddress+'</a>';
+                       outtxt += '<a href="'+monoecininjaaddressexplorer[monoecininjatestnet][0][0].replace('%%a%%',data.data.budgets[0].PaymentAddress)+'">'+data.data.budgets[0].PaymentAddress+'</a>';
                    }
                    else {
-                       outtxt += '<a href="'+dashninjaaddressexplorer[dashninjatestnet][i][0].replace('%%a%%',data.data.budgets[0].PaymentAddress)+'">['+ix+']</a>';
+                       outtxt += '<a href="'+monoecininjaaddressexplorer[monoecininjatestnet][i][0].replace('%%a%%',data.data.budgets[0].PaymentAddress)+'">['+ix+']</a>';
                    }
                    ix++;
                }
@@ -270,7 +269,7 @@ function budgetdetailsRefresh(useHash){
        else {
            tableVotes = $('#votestable').dataTable({
                ajax: {
-                   url: '/api/budgets/votes?testnet=' + dashninjatestnet + '&budgetid=' + encodeURIComponent(budgetid) + '&onlyvalid=1',
+                   url: '/api/budgets/votes?testnet=' + monoecininjatestnet + '&budgetid=' + encodeURIComponent(budgetid) + '&onlyvalid=1',
                    dataSrc: 'data.budgetsvotes'
                },
                lengthMenu: [[50, 100, 250, 500, -1], [50, 100, 250, 500, "All"]],
@@ -292,23 +291,23 @@ function budgetdetailsRefresh(useHash){
                        data: null, render: function (data, type, row) {
                        var outtxt = '';
                        if (type != 'sort') {
-                           if ((dashninjamndetailvin[dashninjatestnet].length > 0) || (dashninjatxexplorer[dashninjatestnet].length > 0)) {
+                           if ((monoecininjamndetailvin[monoecininjatestnet].length > 0) || (monoecininjatxexplorer[monoecininjatestnet].length > 0)) {
                                var ix = 0;
-                               for (var i = 0, ien = dashninjamndetailvin[dashninjatestnet].length; i < ien; i++) {
+                               for (var i = 0, ien = monoecininjamndetailvin[monoecininjatestnet].length; i < ien; i++) {
                                    if (ix == 0) {
-                                       outtxt += '<a href="' + dashninjamndetailvin[dashninjatestnet][0][0].replace('%%a%%', data.MasternodeOutputHash + '-' + data.MasternodeOutputIndex) + '">' + data.MasternodeOutputHash + '-' + data.MasternodeOutputIndex + '</a>';
+                                       outtxt += '<a href="' + monoecininjamndetailvin[monoecininjatestnet][0][0].replace('%%a%%', data.MasternodeOutputHash + '-' + data.MasternodeOutputIndex) + '">' + data.MasternodeOutputHash + '-' + data.MasternodeOutputIndex + '</a>';
                                    }
                                    else {
-                                       outtxt += '<a href="' + dashninjamndetailvin[dashninjatestnet][i][0].replace('%%a%%', data.MasternodeOutputHash + '-' + data.MasternodeOutputIndex) + '">[' + ix + ']</a>';
+                                       outtxt += '<a href="' + monoecininjamndetailvin[monoecininjatestnet][i][0].replace('%%a%%', data.MasternodeOutputHash + '-' + data.MasternodeOutputIndex) + '">[' + ix + ']</a>';
                                    }
                                    ix++;
                                }
-                               for (var i = 0, ien = dashninjatxexplorer[dashninjatestnet].length; i < ien; i++) {
+                               for (var i = 0, ien = monoecininjatxexplorer[monoecininjatestnet].length; i < ien; i++) {
                                    if (ix == 0) {
-                                       outtxt += '<a href="' + dashninjatxexplorer[dashninjatestnet][0][0].replace('%%a%%', data.MasternodeOutputHash) + '">' + data.MasternodeOutputHash + '-' + data.MasternodeOutputIndex + '</a>';
+                                       outtxt += '<a href="' + monoecininjatxexplorer[monoecininjatestnet][0][0].replace('%%a%%', data.MasternodeOutputHash) + '">' + data.MasternodeOutputHash + '-' + data.MasternodeOutputIndex + '</a>';
                                    }
                                    else {
-                                       outtxt += '<a href="' + dashninjatxexplorer[dashninjatestnet][i][0].replace('%%a%%', data.MasternodeOutputHash) + '">[' + ix + ']</a>';
+                                       outtxt += '<a href="' + monoecininjatxexplorer[monoecininjatestnet][i][0].replace('%%a%%', data.MasternodeOutputHash) + '">[' + ix + ']</a>';
                                    }
                                    ix++;
                                }
@@ -353,7 +352,7 @@ function budgetdetailsRefresh(useHash){
        else {
            tableSuperBlocks = $('#superblockstable').dataTable({
                ajax: {
-                   url: '/api/blocks?testnet=' + dashninjatestnet + '&budgetids=["' + encodeURIComponent(budgetid) + '"]&onlysuperblocks=1',
+                   url: '/api/blocks?testnet=' + monoecininjatestnet + '&budgetids=["' + encodeURIComponent(budgetid) + '"]&onlysuperblocks=1',
                    dataSrc: 'data.blocks'
                },
                lengthMenu: [[50, 100, 250, 500, -1], [50, 100, 250, 500, "All"]],
@@ -376,8 +375,8 @@ function budgetdetailsRefresh(useHash){
                        data: null, render: function (data, type, row) {
                        var outtxt = data.BlockId;
                        if (type != 'sort') {
-                           if (dashninjablockexplorer[dashninjatestnet].length > 0) {
-                               outtxt = '<a href="' + dashninjablockexplorer[dashninjatestnet][0][0].replace('%%b%%', data.BlockHash) + '">' + data.BlockId + '</a>';
+                           if (monoecininjablockexplorer[monoecininjatestnet].length > 0) {
+                               outtxt = '<a href="' + monoecininjablockexplorer[monoecininjatestnet][0][0].replace('%%b%%', data.BlockHash) + '">' + data.BlockId + '</a>';
                            }
                        }
                        return outtxt;
@@ -398,7 +397,7 @@ function budgetdetailsRefresh(useHash){
                        if (type == "sort") {
                            return data.BlockMNValue;
                        } else {
-                           return addCommas(data.BlockMNValue.toFixed(3)) + " " + dashninjacoin[dashninjatestnet];
+                           return addCommas(data.BlockMNValue.toFixed(3)) + " " + monoecininjacoin[monoecininjatestnet];
                        }
                    }
                    }
@@ -421,7 +420,7 @@ function budgetdetailsRefresh(useHash){
 
 function refreshBudgetProjection(useHash) {
     console.log("DEBUG: refreshBudgetProjection starting");
-    var query = '/api/budgetsprojection?testnet=' + dashninjatestnet+'&onlyvalid=1';
+    var query = '/api/budgetsprojection?testnet=' + monoecininjatestnet+'&onlyvalid=1';
     if (useHash) {
         query += '&budgethashes=["' + encodeURIComponent(budgethash) + '"]';
     }
@@ -434,7 +433,7 @@ function refreshBudgetProjection(useHash) {
 
         if ((data.hasOwnProperty("data")) && (data.data.hasOwnProperty("budgetsprojection")) && (Array.isArray(data.data.budgetsprojection)) && (data.data.budgetsprojection.length == 1) &&
             ((currenttimestamp() - data.data.budgetsprojection[0].LastReported) < 3600)) {
-            $('#budgetstatus').html("Valid, Established and Alloted (" + addCommas(data.data.budgetsprojection[0].Alloted.toFixed(3)) + " " + dashninjacoin[dashninjatestnet] + ")");
+            $('#budgetstatus').html("Valid, Established and Alloted (" + addCommas(data.data.budgetsprojection[0].Alloted.toFixed(3)) + " " + monoecininjacoin[monoecininjatestnet] + ")");
         }
         else {
             $('#budgetstatus').html("Valid and Established");
@@ -445,9 +444,9 @@ function refreshBudgetProjection(useHash) {
 function refreshFiatValues() {
 
     if (currentbudget !== null) {
-        $('#fiatDASHBTCval').html( '<i class="fa fa-spinner fa-pulse"></i>' );
-        $('#fiatDASHBTCwho').html( '<i class="fa fa-spinner fa-pulse"></i>' );
-        $('#fiatDASHBTCwhen').html( '<i class="fa fa-spinner fa-pulse"></i>' );
+        $('#fiatMONOECIBTCval').html( '<i class="fa fa-spinner fa-pulse"></i>' );
+        $('#fiatMONOECIBTCwho').html( '<i class="fa fa-spinner fa-pulse"></i>' );
+        $('#fiatMONOECIBTCwhen').html( '<i class="fa fa-spinner fa-pulse"></i>' );
         $('#fiatUSDBTCval').html( '<i class="fa fa-spinner fa-pulse"></i>' );
         $('#fiatUSDBTCwho').html( '<i class="fa fa-spinner fa-pulse"></i>' );
         $('#fiatUSDBTCwhen').html( '<i class="fa fa-spinner fa-pulse"></i>' );
@@ -464,9 +463,9 @@ function refreshFiatValues() {
             if ((!data.hasOwnProperty("data")) || (!data.data.hasOwnProperty("tablevars")) || (data.data.tablevars === null)
             || (!data.data.tablevars.hasOwnProperty("btcdrk")) || (!data.data.tablevars.hasOwnProperty("eurobtc"))
             || (!data.data.tablevars.hasOwnProperty("usdbtc"))) {
-                $('#fiatDASHBTCval').text( '???' );
-                $('#fiatDASHBTCwho').text( '???' );
-                $('#fiatDASHBTCwhen').text( '???' );
+                $('#fiatMONOECIBTCval').text( '???' );
+                $('#fiatMONOECIBTCwho').text( '???' );
+                $('#fiatMONOECIBTCwhen').text( '???' );
                 $('#fiatUSDBTCval').text( '???' );
                 $('#fiatUSDBTCwho').text( '???' );
                 $('#fiatUSDBTCwhen').text( '???' );
@@ -479,10 +478,10 @@ function refreshFiatValues() {
                 $('#budgettotalamounteur').text( '???' );
             }
             else {
-                $('#fiatDASHBTCval').text( data.data.tablevars.btcdrk.StatValue );
-                $('#fiatDASHBTCwho').text( data.data.tablevars.btcdrk.Source );
+                $('#fiatMONOECIBTCval').text( data.data.tablevars.btcdrk.StatValue );
+                $('#fiatMONOECIBTCwho').text( data.data.tablevars.btcdrk.Source );
                 var tmpDate = new Date(parseInt(data.data.tablevars.btcdrk.LastUpdate)*1000);
-                $('#fiatDASHBTCwhen').text( tmpDate.toLocaleString() );
+                $('#fiatMONOECIBTCwhen').text( tmpDate.toLocaleString() );
                 $('#fiatUSDBTCval').text( data.data.tablevars.usdbtc.StatValue );
                 $('#fiatUSDBTCwho').text( data.data.tablevars.usdbtc.Source );
                 tmpDate = new Date(parseInt(data.data.tablevars.usdbtc.LastUpdate)*1000);
@@ -512,9 +511,9 @@ function refreshFiatValues() {
 
 $(document).ready(function(){
 
-  $('#dashninjajsversion').text( dashninjaversion );
+  $('#monoecininjajsversion').text( monoecininjaversion );
 
-  if (dashninjatestnet == 1) {
+  if (monoecininjatestnet == 1) {
       $('#testnetalert').show();
   }
 
@@ -531,7 +530,7 @@ $(document).ready(function(){
   }
   else {
     if ((budgetid != "") && (budgethash == "")) {
-      if (!dashbudgetregexp.test(budgetid)) {
+      if (!monoecibudgetregexp.test(budgetid)) {
           budgetid = 'Invalid';
           $('#budgetid').text(budgetid);
       }
@@ -540,7 +539,7 @@ $(document).ready(function(){
       }
     }
     else {
-      if (!dashoutputregexp.test(budgethash)) {
+      if (!monoecioutputregexp.test(budgethash)) {
           budgethash = 'Invalid';
           $('#budgethash').text( budgethash );
       }
@@ -608,8 +607,8 @@ $(document).ready(function(){
             outtxt = "Never";
         }
         else {
-            if (dashninjablockexplorer[dashninjatestnet].length > 0) {
-                outtxt = 'Block <a href="' + dashninjablockexplorer[dashninjatestnet][0][0].replace('%%b%%', latestblock.BlockHash) + '">' + latestblock.BlockId + '</a>';
+            if (monoecininjablockexplorer[monoecininjatestnet].length > 0) {
+                outtxt = 'Block <a href="' + monoecininjablockexplorer[monoecininjatestnet][0][0].replace('%%b%%', latestblock.BlockHash) + '">' + latestblock.BlockId + '</a>';
             }
             var tmpDate = new Date(latestblock.BlockTime * 1000);
             outtxt += " on " + tmpDate.toLocaleString() + " (" + timeSince((currenttimestamp() - latestblock.BlockTime)) + ")";

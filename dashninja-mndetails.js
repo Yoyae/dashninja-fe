@@ -1,59 +1,58 @@
 /*
- This file is part of Dash Ninja.
- https://github.com/elbereth/dashninja-fe
+ This file is part of Monoeci Ninja.
+ https://github.com/Yoyae/monoecininja-fe
 
- Dash Ninja is free software: you can redistribute it and/or modify
+ Monoeci Ninja is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
- Dash Ninja is distributed in the hope that it will be useful,
+ Monoeci Ninja is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Dash Ninja.  If not, see <http://www.gnu.org/licenses/>.
+ along with Monoeci Ninja.  If not, see <http://www.gnu.org/licenses/>.
 
  */
 
-// Dash Ninja Front-End (dashninja-fe) - Masternode Detail
-// By elberethzone / https://dashtalk.org/members/elbereth.175/
+// Monoeci Ninja Front-End (monoecininja-fe) - Masternode Detail
 
-var dashninjaversion = '3.1.0';
+var monoecininjaversion = '3.1.0';
 var tablePayments = null;
 var tableExStatus = null;
 var dataProtocolDesc = [];
 var maxProtocol = -1;
-var dashmainkeyregexp = /^[7X][a-zA-Z0-9]{33}$/;
-var dashtestkeyregexp = /^[yx][a-zA-Z0-9]{33}$/;
-var dashoutputregexp = /^[a-z0-9]{64}-[0-9]+$/;
+var monoecimainkeyregexp = /^[7X][a-zA-Z0-9]{33}$/;
+var monoecitestkeyregexp = /^[yx][a-zA-Z0-9]{33}$/;
+var monoecioutputregexp = /^[a-z0-9]{64}-[0-9]+$/;
 var mnpubkey = '';
 var mnvin = '';
 
 $.fn.dataTable.ext.errMode = 'throw';
 
-if (typeof dashninjatestnet === 'undefined') {
-  var dashninjatestnet = 0;
+if (typeof monoecininjatestnet === 'undefined') {
+  var monoecininjatestnet = 0;
 }
-if (typeof dashninjatestnethost !== 'undefined') {
-  if (window.location.hostname == dashninjatestnethost) {
-    dashninjatestnet = 1;
-    $('a[name=menuitemexplorer]').attr("href", "https://"+dashninjatestnetexplorer);
+if (typeof monoecininjatestnethost !== 'undefined') {
+  if (window.location.hostname == monoecininjatestnethost) {
+    monoecininjatestnet = 1;
+    $('a[name=menuitemexplorer]').attr("href", "https://"+monoecininjatestnetexplorer);
   }
 }
 
-if (typeof dashninjacoin === 'undefined') {
-  var dashninjacoin = ['',''];
+if (typeof monoecininjacoin === 'undefined') {
+  var monoecininjacoin = ['',''];
 }
-if (typeof dashninjaaddressexplorer === 'undefined') {
-  var dashninjaaddressexplorer = [[],[]];
+if (typeof monoecininjaaddressexplorer === 'undefined') {
+  var monoecininjaaddressexplorer = [[],[]];
 }
-if (typeof dashninjaaddressexplorer[0] === 'undefined') {
-  dashninjaaddressexplorer[0] = [];
+if (typeof monoecininjaaddressexplorer[0] === 'undefined') {
+  monoecininjaaddressexplorer[0] = [];
 }
-if (typeof dashninjaaddressexplorer[1] === 'undefined') {
-  dashninjaaddressexplorer[1] = [];
+if (typeof monoecininjaaddressexplorer[1] === 'undefined') {
+  monoecininjaaddressexplorer[1] = [];
 }
 
 function tablePaymentsRefresh(){
@@ -65,7 +64,7 @@ function tablePaymentsRefresh(){
 function mndetailsRefresh(useVin){
   console.log("DEBUG: mndetailsRefresh starting");
   $('#mninfosLR').html( '<i class="fa fa-spinner fa-pulse"></i> Refreshing <i class="fa fa-spinner fa-pulse"></i>' );
-  var query = '/api/masternodes?balance=1&portcheck=1&lastpaid=1&exstatus=1&testnet='+dashninjatestnet;
+  var query = '/api/masternodes?balance=1&portcheck=1&lastpaid=1&exstatus=1&testnet='+monoecininjatestnet;
   if (useVin) {
     query += '&vins=["'+mnvin+'"]';
   }
@@ -155,7 +154,7 @@ function mndetailsRefresh(useVin){
     } else {
       cls = "success";
     }
-    $('#mnbalance').text ( addCommas( num.toFixed(3) )+' '+dashninjacoin[dashninjatestnet]).removeClass("danger").removeClass("success").addClass(cls);
+    $('#mnbalance').text ( addCommas( num.toFixed(3) )+' '+monoecininjacoin[monoecininjatestnet]).removeClass("danger").removeClass("success").addClass(cls);
 
     // Last Paid data
     var outtxt = "";
@@ -173,8 +172,8 @@ function mndetailsRefresh(useVin){
     if (data.data[0].LastPaidFromBlocks !== false) {
       var tmpDate = new Date(data.data[0].LastPaidFromBlocks.MNLastPaidTime*1000);
       outtxt = tmpDate.toLocaleString()+" ("+deltaTimeStampHRlong(parseInt(data.data[0].LastPaidFromBlocks.MNLastPaidTime),currenttimestamp())+" ago) on block ";
-      if (dashninjaqueryexplorer[dashninjatestnet].length > 0) {
-        outtxt += '<a href="'+dashninjaqueryexplorer[dashninjatestnet][0][0].replace('%%q%%',data.data[0].LastPaidFromBlocks.MNLastPaidBlock)+'">'+data.data[0].LastPaidFromBlocks.MNLastPaidBlock+'</a>';
+      if (monoecininjaqueryexplorer[monoecininjatestnet].length > 0) {
+        outtxt += '<a href="'+monoecininjaqueryexplorer[monoecininjatestnet][0][0].replace('%%q%%',data.data[0].LastPaidFromBlocks.MNLastPaidBlock)+'">'+data.data[0].LastPaidFromBlocks.MNLastPaidBlock+'</a>';
       }
       else {
         outtxt += data.data[0].LastPaidFromBlocks.MNLastPaidBlock;
@@ -223,7 +222,7 @@ function mndetailsRefresh(useVin){
         else if ((data.data[0].Portcheck.SubVer.length > 7) && (data.data[0].Portcheck.SubVer.substring(0, 6) == '/Core:') && (data.data[0].Portcheck.SubVer.substring(data.data[0].Portcheck.SubVer.length - 1) == '/')) {
             versioninfo = data.data[0].Portcheck.SubVer.substring(6, data.data[0].Portcheck.SubVer.indexOf('/', 6));
         }
-        else if ((data.data[0].Portcheck.SubVer.length > 11) && (data.data[0].Portcheck.SubVer.substring(0, 11) == '/Dash Core:') && (data.data[0].Portcheck.SubVer.substring(data.data[0].Portcheck.SubVer.length - 1) == '/')) {
+        else if ((data.data[0].Portcheck.SubVer.length > 11) && (data.data[0].Portcheck.SubVer.substring(0, 11) == '/Monoeci Core:') && (data.data[0].Portcheck.SubVer.substring(data.data[0].Portcheck.SubVer.length - 1) == '/')) {
             versioninfo = data.data[0].Portcheck.SubVer.substring(11, data.data[0].Portcheck.SubVer.indexOf('/', 11));
         }
     }
@@ -235,7 +234,7 @@ function mndetailsRefresh(useVin){
    $('#mninfosLR').text( n + ' ' + time );
 
       tablePayments = $('#paymentstable').dataTable( {
-        ajax: { url: '/api/blocks?testnet='+dashninjatestnet+'&pubkeys=["'+data.data[0].MasternodePubkey+'"]&interval=P1M',
+        ajax: { url: '/api/blocks?testnet='+monoecininjatestnet+'&pubkeys=["'+data.data[0].MasternodePubkey+'"]&interval=P1M',
                 dataSrc: 'data.blocks' },
         paging: false,
         order: [[ 0, "desc" ]],
@@ -260,8 +259,8 @@ function mndetailsRefresh(useVin){
             { data: null, render: function ( data, type, row ) {
                var outtxt = data.BlockId;
                if (type != 'sort') {
-                 if (dashninjablockexplorer[dashninjatestnet].length > 0) {
-                   outtxt = '<a href="'+dashninjablockexplorer[dashninjatestnet][0][0].replace('%%b%%',data.BlockHash)+'">'+data.BlockId+'</a>';
+                 if (monoecininjablockexplorer[monoecininjatestnet].length > 0) {
+                   outtxt = '<a href="'+monoecininjablockexplorer[monoecininjatestnet][0][0].replace('%%b%%',data.BlockHash)+'">'+data.BlockId+'</a>';
                  }
                }
                return outtxt;
@@ -283,7 +282,7 @@ function mndetailsRefresh(useVin){
                } else if (type == "sort") {
                  return data.BlockMNPayeeExpected;
                } else {
-                 return '<a href="'+dashninjamasternodemonitoring[dashninjatestnet].replace('%%p%%',data.BlockMNPayeeExpected)+'">'+data.BlockMNPayeeExpected+'</a>';;
+                 return '<a href="'+monoecininjamasternodemonitoring[monoecininjatestnet].replace('%%p%%',data.BlockMNPayeeExpected)+'">'+data.BlockMNPayeeExpected+'</a>';;
                }
             } },
             { data: null, render: function ( data, type, row ) {
@@ -292,7 +291,7 @@ function mndetailsRefresh(useVin){
                } else if (type == "sort") {
                  return data.BlockMNPayee;
                } else {
-                 return '<a href="'+dashninjamasternodemonitoring[dashninjatestnet].replace('%%p%%',data.BlockMNPayee)+'">'+data.BlockMNPayee+'</a>';;
+                 return '<a href="'+monoecininjamasternodemonitoring[monoecininjatestnet].replace('%%p%%',data.BlockMNPayee)+'">'+data.BlockMNPayee+'</a>';;
                }
             } }
         ],
@@ -388,9 +387,9 @@ function mndetailsRefresh(useVin){
 
 $(document).ready(function(){
 
-  $('#dashninjajsversion').text( dashninjaversion ).addClass("label-info").removeClass("label-danger");
+  $('#monoecininjajsversion').text( monoecininjaversion ).addClass("label-info").removeClass("label-danger");
 
-  if (dashninjatestnet == 1) {
+  if (monoecininjatestnet == 1) {
     $('#testnetalert').show();
   }
 
@@ -407,8 +406,8 @@ $(document).ready(function(){
   }
   else {
     if ((mnpubkey != "") && (mnvin == "")) {
-      if (((dashninjatestnet == 0) && (!dashmainkeyregexp.test(mnpubkey)))
-        || ((dashninjatestnet == 1) && (!dashtestkeyregexp.test(mnpubkey)))) {
+      if (((monoecininjatestnet == 0) && (!monoecimainkeyregexp.test(mnpubkey)))
+        || ((monoecininjatestnet == 1) && (!monoecitestkeyregexp.test(mnpubkey)))) {
         mnpubkey = 'Invalid';
         $('#mnpubkey').text(mnpubkey);
       }
@@ -417,7 +416,7 @@ $(document).ready(function(){
       }
     }
     else {
-      if (!dashoutputregexp.test(mnvin)) {
+      if (!monoecioutputregexp.test(mnvin)) {
         mnvin = 'Invalid';
         $('#mnoutput').text( mnvin );
       }
@@ -448,7 +447,7 @@ $(document).ready(function(){
           }
         }
         var num = Math.round( totpaid * 1000 ) / 1000;
-        $('#mntotalpaid').text ( addCommas( num.toFixed(3) )+' '+dashninjacoin[dashninjatestnet]+' ('+numpaid+' times / '+missed+' missed / '+hijacked+' hijacked)');
+        $('#mntotalpaid').text ( addCommas( num.toFixed(3) )+' '+monoecininjacoin[monoecininjatestnet]+' ('+numpaid+' times / '+missed+' missed / '+hijacked+' hijacked)');
 
         // Change the last refresh date
         var date = new Date();
