@@ -20,46 +20,42 @@
 // Either indicate if we are we on testnet (=1) or on mainnet (=0)
 //var monoecininjatestnet = 0;
 // OR indicate the hostname for testnet (if the hostname the page is running is equal to this, it will switch to testnet)
-var monoecininjatestnethost = 'test.monoecininja.pl';
-var monoecininjatestnetexplorer = 'test.explorer.monoecininja.pl';
+var monoecininjatestnethost = 'test.monoecininja.pl'; //TODO
+var monoecininjatestnetexplorer = 'test.explorer.monoecininja.pl'; //TODO
 
 // Tor onion hostname
-var monoecininjator = 'seuhd5sihasshuqh.onion';
-var monoecininjai2p = 'dzjzoefy7fx57h5xkdknikvfv3ckbxu2bx5wryn6taud343g2jma.b32.i2p';
+var monoecininjator = 'seuhd5sihasshuqh.onion'; //TODO
+var monoecininjai2p = 'dzjzoefy7fx57h5xkdknikvfv3ckbxu2bx5wryn6taud343g2jma.b32.i2p'; //TODO
 
 // Coin logos
-var monoecininjacoin = ['MONOECI','tMONOECI'];
+var monoecininjacoin = ['XMCC','tXMCC'];
 
-// URLs
-// Block info
-// ["https://explorer.monoecininja.pl/block/%%b%%","Monoeci Blockchain Explorer"] TODO
-var monoecininjablockexplorer = [[["http://chainz.cryptoid.info/monoeci/block.dws?%%b%%.htm","cryptoID Monoeci Blockchain Explorer"]],
-                          [["https://test.explorer.monoecininja.pl/block/%%b%%","Monoeci Ninja Testnet Blockchain Explorer"],
-                           ["http://test.explorer.darkcoin.qa/block/%%b%%","Official Testnet Monoeci Blockchain Explorer"],
-                           ["http://test.insight.masternode.io:3001/block/%%b%%","coingun's Testnet Monoeci Blockchain Explorer"]]];
+// Block explorer
+var monoecininjablockexplorer = [[["http://xmcc.altexplorer.co/block/%%b%%","altexplorer Monoeci Blockchain Explorer"],
+                           ["http://block.monacocoin.net:8080/block/%%b%%","Official Monoeci Blockchain Explorer"],
+                           ["http://163.172.135.190:3001/insight/block/%%b%%","Official Monoeci (insight) Blockchain Explorer"]],
+                           []];
 
 // Address info
-var monoecininjamndetail = [[["/mndetails.html?mnpubkey=%%a%%","Monoeci Ninja Masternode Detail"],
-                          ["https://www.monoecicentral.org/masternodes/%%a%%","Monoeci Central Masternode Monitoring"]],
+var monoecininjamndetail = [[["/mndetails.html?mnpubkey=%%a%%","Monoeci Ninja Masternode Detail"]],
                          [["/mndetails.html?mnpubkey=%%a%%","Monoeci Ninja Testnet Masternode Detail"]]];
 var monoecininjamndetailvin = [[["/mndetails.html?mnoutput=%%a%%","Monoeci Ninja Masternode Detail"]],
                             [["/mndetails.html?mnoutput=%%a%%","Monoeci Ninja Testnet Masternode Detail"]]];
 
-// ["https://explorer.monoecininja.pl/address/%%a%%","Monoeci Blockchain Explorer"],
-var monoecininjaaddressexplorer = [[["https://chainz.cryptoid.info/monoeci/address.dws?%%a%%.htm","cryptoID Monoeci Blockchain Explorer"]],
-                                [["https://test.explorer.monoecininja.pl/address/%%a%%","Monoeci Ninja Testnet Blockchain Explorer"],
-                                 ["http://test.explorer.darkcoin.qa/address/%%a%%","Official Testnet Monoeci Blockchain Explorer"],
-                                 ["http://test.insight.masternode.io:3001/address/%%a%%","coingun's Testnet Monoeci Blockchain Explorer"]]];
-// ["http://explorer.monoecininja.pl/tx/%%a%%","Monoeci Blockchain Explorer"],
-var monoecininjatxexplorer = [[["https://chainz.cryptoid.info/monoeci/tx.dws?%%a%%.htm","cryptoID Monoeci Blockchain Explorer"]],
-                           [["http://test.explorer.monoecininja.pl/tx/%%a%%","Monoeci Ninja Testnet Blockchain Explorer"],
-                            ["http://test.explorer.darkcoin.qa/tx/%%a%%","Official Testnet Monoeci Blockchain Explorer"]]];
+// Address explorer
+var monoecininjaaddressexplorer = [[["http://xmcc.altexplorer.co/address/%%b%%","altexplorer Monoeci Blockchain Explorer"],
+                           ["http://block.monacocoin.net:8080/address/%%b%%","Official Monoeci Blockchain Explorer"],
+                           ["http://163.172.135.190:3001/insight/address/%%b%%","Official Monoeci (insight) Blockchain Explorer"]],
+                           []];
+
+// Transaction explorer
+var monoecininjatxexplorer = [[["http://xmcc.altexplorer.co/tx/%%b%%","altexplorer Monoeci Blockchain Explorer"],
+                           ["http://block.monacocoin.net:8080/tx/%%b%%","Official Monoeci Blockchain Explorer"],
+                           ["http://163.172.135.190:3001/insight/tx/%%b%%","Official Monoeci (insight) Blockchain Explorer"]],
+                           []];
 
 // Search query
-// ["https://explorer.monoecininja.pl/search?q=%%q%%","Monoeci Blockchain Explorer"],
-var monoecininjaqueryexplorer = [[["https://chainz.cryptoid.info/monoeci/search.dws?q=%%q%%","cryptoID Monoeci Blockchain Explorer"]],
-                            [["https://test.explorer.monoecininja.pl/search?q=%%q%%","Monoeci Ninja Testnet Blockchain Explorer"],
-                             ["http://test.explorer.darkcoin.qa/search?q=%%q%%","Official Testnet Monoeci Blockchain Explorer"]]];
+var monoecininjaqueryexplorer = [[],[]];
 
 var monoecininjamasternodemonitoring = ["/masternodes.html?mnregexp=%%p%%#mnversions","/masternodes.html?mnregexp=%%p%%#mnversions"];
 
@@ -68,4 +64,4 @@ var monoecininjabudgetdetail = ["/budgetdetails.html?budgetid=%%b%%","/budgetdet
 var monoecininjagovernanceproposaldetail = ["/proposaldetails.html?proposalhash=%%b%%","/proposaldetails.html?proposalhash=%%b%%"];
 
 // Blocks per day
-var monoeciblocksperday = 553;
+var monoeciblocksperday = 720;
