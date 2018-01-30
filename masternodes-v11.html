@@ -104,10 +104,6 @@ Versions: <i>HTML v2.1.5 / JS v<span id="monoecininjajsversion">?.?.?</span></i>
     <div id="msgalert" class="alert alert-warning" style="display: none">
       <h2>Masternode operators <u>MUST</u> be <a href="http://monoecipay.io/downloads/">running</a> <span id="currentmonoeciversion" style="font-weight: bold">?.?.?.?</span> or greater!</h2>
     </div>
-    <div class="alert alert-info">
-<p>If this page is useful to you, spare some coin: <a href="http://block.monacocoin.net:8080/address/MLw8i2VzsyhbnZ529LRLoynkwaG3YkHsn7">MLw8i2VzsyhbnZ529LRLoynkwaG3YkHsn7</a><br>
-Brought to you by <a href="https://github.com/Yoyae">Yoyae</a>.</p>
-    </div>
 <h2>Daemon monitoring:</h2>
 <table id="localnodes" class="table table-striped table-condensed table-responsive">
   <thead>
@@ -168,7 +164,7 @@ Brought to you by <a href="https://github.com/Yoyae">Yoyae</a>.</p>
   </tr>
   <tr>
     <td style="background-color:#FF8F8F; text-align:center;">Inactive<br>(0%)</td>
-    <td>Masternode is listed but has status "0" (masternode list)<br/>Possible reasons:<br/><ul><li>Masternode is not responding (port 9999 must be open on your firewall, if you see Closed below, there is your problem)<li>The 1000 MONOECI were removed from the masternode start wallet<li>The masternode is getting banned (active on some but inactive on others):<br/>Try masternode start with a fresh/new local wallet (don't forget to send your 1000 MONOECI to that new wallet!!)<br/>This will force a new masternode pubkey (I fixed my dmn01 with that trick)<li>Make sure you have the <a href="http://monoecipay.io/downloads/">latest daemon version</a></ul></td>
+    <td>Masternode is listed but has status "0" (masternode list)<br/>Possible reasons:<br/><ul><li>Masternode is not responding (port 24157 must be open on your firewall, if you see Closed below, there is your problem)<li>The 1000 MONOECI were removed from the masternode start wallet<li>The masternode is getting banned (active on some but inactive on others):<br/>Try masternode start with a fresh/new local wallet (don't forget to send your 1000 MONOECI to that new wallet!!)<br/>This will force a new masternode pubkey (I fixed my dmn01 with that trick)<li>Make sure you have the <a href="http://monoecipay.io/downloads/">latest daemon version</a></ul></td>
   </tr>
   <tr>
     <td style="background-color:#FFFF8F; text-align:center;">Partially Inactive/Unlisted<br>(&gt;=50%)</td>
@@ -249,7 +245,7 @@ Estimated daily payout for an active node (blocks with MN payments last 24h: <sp
 </div>
 <div id="footer">
   <div class="container">
-<p style="font-size:small;" align=right>Brought to you by <a href="https://github.com/Yoyae">Yoyae</a>. If this page is useful to you, spare some coin: <a href="http://block.monacocoin.net:8080/address/MLw8i2VzsyhbnZ529LRLoynkwaG3YkHsn7">MLw8i2VzsyhbnZ529LRLoynkwaG3YkHsn7</a></p>
+<p style="font-size:small;" align=right>Brought to you by <a class="badge badge-primary" href="https://github.com/Yoyae">Yoyae</a>. If this page is useful to you, spare some coin: <a href="http://block.monacocoin.net:8080/address/MLw8i2VzsyhbnZ529LRLoynkwaG3YkHsn7">MLw8i2VzsyhbnZ529LRLoynkwaG3YkHsn7</a></p>
   </div>
 </div>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>

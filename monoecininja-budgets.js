@@ -690,7 +690,7 @@ $(document).ready(function(){
             },
             yAxis: {
                 title: {
-                    text: 'Amount (MONOECI)'
+                    text: 'Amount (XMCC)'
                 },
                 plotLines: [{
                     value: 0,
@@ -699,7 +699,7 @@ $(document).ready(function(){
                 }]
             },
             tooltip: {
-                valueSuffix: 'MONOECI'
+                valueSuffix: 'XMCC'
             },
             legend: {
                 layout: 'vertical',

@@ -153,7 +153,7 @@ $app->get('/api/blocks', function() use ($app,&$mysqli) {
     else {
       foreach ($mnpubkeys as $mnpubkey) {
         if ( ( ($testnet == 1) && ! ( (substr($mnpubkey,0,1) == 'x') || (substr($mnpubkey,0,1) == 'y') ) )
-          || ( ($testnet == 0) && ! ( (substr($mnpubkey,0,1) == 'X') || (substr($mnpubkey,0,1) == '7') ) )
+          || ( ($testnet == 0) && ! (substr($mnpubkey,0,1) == 'M') )
           || ( strlen($mnpubkey) != 34 ) ) {
           $errmsg[] = "Parameter pubkeys: Entry $mnpubkey: Incorrect pubkey format.";
         }
@@ -2373,7 +2373,7 @@ $app->get('/api/masternodes', function() use ($app,&$mysqli) {
     else {
       foreach ($mnpubkeys as $mnpubkey) {
         if ( ( ($testnet == 1) && ! ( (substr($mnpubkey,0,1) == 'y') || (substr($mnpubkey,0,1) == 'x') ) )
-          || ( ($testnet == 0) && ! ( (substr($mnpubkey,0,1) == 'X') || (substr($mnpubkey,0,1) == '7') ) )
+          || ( ($testnet == 0) && ! ( (substr($mnpubkey,0,1) == 'M') ) )
           || ( strlen($mnpubkey) != 34 ) ) {
           $errmsg[] = "Parameter pubkeys: Entry $mnpubkey: Incorrect pubkey format.";
         }
@@ -3040,7 +3040,7 @@ $app->get('/api/tablevars', function() use ($app,&$mysqli) {
 $app->notFound(function () use ($app) {
     $response = new Phalcon\Http\Response();
     $response->setStatusCode(404, "Not Found");
-    $response->setJsonContent(array('status' => 'ERROR', 'messages' => array('Unknown end-point')));
+    $response->setJsonContent(array('status' => 'ERROR', 'messages' => array('Unknown public end-point')));
     $response->send();
 });
 

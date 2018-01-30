@@ -24,16 +24,16 @@ var monoecininjatestnethost = 'test.monoecininja.pl'; //TODO
 var monoecininjatestnetexplorer = 'test.explorer.monoecininja.pl'; //TODO
 
 // Tor onion hostname
-var monoecininjator = 'seuhd5sihasshuqh.onion'; //TODO
-var monoecininjai2p = 'dzjzoefy7fx57h5xkdknikvfv3ckbxu2bx5wryn6taud343g2jma.b32.i2p'; //TODO
+//var monoecininjator = 'seuhd5sihasshuqh.onion'; //TODO
+//var monoecininjai2p = 'dzjzoefy7fx57h5xkdknikvfv3ckbxu2bx5wryn6taud343g2jma.b32.i2p'; //TODO
 
 // Coin logos
 var monoecininjacoin = ['XMCC','tXMCC'];
 
 // Block explorer
-var monoecininjablockexplorer = [[["http://xmcc.altexplorer.co/block/%%b%%","altexplorer Monoeci Blockchain Explorer"],
-                           ["http://block.monacocoin.net:8080/block/%%b%%","Official Monoeci Blockchain Explorer"],
-                           ["http://163.172.135.190:3001/insight/block/%%b%%","Official Monoeci (insight) Blockchain Explorer"]],
+var monoecininjablockexplorer = [[["http://block.monacocoin.net:8080/block/%%b%%","Official Monoeci Blockchain Explorer"],
+                           ["http://163.172.135.190:3001/insight/block/%%b%%","Official Monoeci (insight) Blockchain Explorer"],
+						   ["http://xmcc.altexplorer.co/block/%%b%%","altexplorer Monoeci Blockchain Explorer"]],
                            []];
 
 // Address info
@@ -43,15 +43,15 @@ var monoecininjamndetailvin = [[["/mndetails.html?mnoutput=%%a%%","Monoeci Ninja
                             [["/mndetails.html?mnoutput=%%a%%","Monoeci Ninja Testnet Masternode Detail"]]];
 
 // Address explorer
-var monoecininjaaddressexplorer = [[["http://xmcc.altexplorer.co/address/%%b%%","altexplorer Monoeci Blockchain Explorer"],
-                           ["http://block.monacocoin.net:8080/address/%%b%%","Official Monoeci Blockchain Explorer"],
-                           ["http://163.172.135.190:3001/insight/address/%%b%%","Official Monoeci (insight) Blockchain Explorer"]],
+var monoecininjaaddressexplorer = [[["http://block.monacocoin.net:8080/address/%%b%%","Official Monoeci Blockchain Explorer"],
+                           ["http://163.172.135.190:3001/insight/address/%%b%%","Official Monoeci (insight) Blockchain Explorer"],
+						   ["http://xmcc.altexplorer.co/address/%%b%%","altexplorer Monoeci Blockchain Explorer"]],
                            []];
 
 // Transaction explorer
-var monoecininjatxexplorer = [[["http://xmcc.altexplorer.co/tx/%%b%%","altexplorer Monoeci Blockchain Explorer"],
-                           ["http://block.monacocoin.net:8080/tx/%%b%%","Official Monoeci Blockchain Explorer"],
-                           ["http://163.172.135.190:3001/insight/tx/%%b%%","Official Monoeci (insight) Blockchain Explorer"]],
+var monoecininjatxexplorer = [[["http://block.monacocoin.net:8080/tx/%%b%%","Official Monoeci Blockchain Explorer"],
+                           ["http://163.172.135.190:3001/insight/tx/%%b%%","Official Monoeci (insight) Blockchain Explorer"],
+						   ["http://xmcc.altexplorer.co/tx/%%b%%","altexplorer Monoeci Blockchain Explorer"]],
                            []];
 
 // Search query

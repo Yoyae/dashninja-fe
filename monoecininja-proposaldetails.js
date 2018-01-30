@@ -441,9 +441,9 @@ function refreshBudgetProjection(useHash) {
 function refreshFiatValues() {
 
     if (currentbudget !== null) {
-        $('#fiatMONOECIBTCval').html( '<i class="fa fa-spinner fa-pulse"></i>' );
-        $('#fiatMONOECIBTCwho').html( '<i class="fa fa-spinner fa-pulse"></i>' );
-        $('#fiatMONOECIBTCwhen').html( '<i class="fa fa-spinner fa-pulse"></i>' );
+        $('#fiatXMCCBTCval').html( '<i class="fa fa-spinner fa-pulse"></i>' );
+        $('#fiatXMCCBTCwho').html( '<i class="fa fa-spinner fa-pulse"></i>' );
+        $('#fiatXMCCBTCwhen').html( '<i class="fa fa-spinner fa-pulse"></i>' );
         $('#fiatUSDBTCval').html( '<i class="fa fa-spinner fa-pulse"></i>' );
         $('#fiatUSDBTCwho').html( '<i class="fa fa-spinner fa-pulse"></i>' );
         $('#fiatUSDBTCwhen').html( '<i class="fa fa-spinner fa-pulse"></i>' );
@@ -460,9 +460,9 @@ function refreshFiatValues() {
             if ((!data.hasOwnProperty("data")) || (!data.data.hasOwnProperty("tablevars")) || (data.data.tablevars === null)
             || (!data.data.tablevars.hasOwnProperty("btcdrk")) || (!data.data.tablevars.hasOwnProperty("eurobtc"))
             || (!data.data.tablevars.hasOwnProperty("usdbtc"))) {
-                $('#fiatMONOECIBTCval').text( '???' );
-                $('#fiatMONOECIBTCwho').text( '???' );
-                $('#fiatMONOECIBTCwhen').text( '???' );
+                $('#fiatXMCCBTCval').text( '???' );
+                $('#fiatXMCCBTCwho').text( '???' );
+                $('#fiatXMCCBTCwhen').text( '???' );
                 $('#fiatUSDBTCval').text( '???' );
                 $('#fiatUSDBTCwho').text( '???' );
                 $('#fiatUSDBTCwhen').text( '???' );
@@ -475,10 +475,10 @@ function refreshFiatValues() {
                 $('#budgettotalamounteur').text( '???' );
             }
             else {
-                $('#fiatMONOECIBTCval').text( data.data.tablevars.btcdrk.StatValue );
-                $('#fiatMONOECIBTCwho').text( data.data.tablevars.btcdrk.Source );
+                $('#fiatXMCCBTCval').text( data.data.tablevars.btcdrk.StatValue );
+                $('#fiatXMCCBTCwho').text( data.data.tablevars.btcdrk.Source );
                 var tmpDate = new Date(parseInt(data.data.tablevars.btcdrk.LastUpdate)*1000);
-                $('#fiatMONOECIBTCwhen').text( tmpDate.toLocaleString() );
+                $('#fiatXMCCBTCwhen').text( tmpDate.toLocaleString() );
                 $('#fiatUSDBTCval').text( data.data.tablevars.usdbtc.StatValue );
                 $('#fiatUSDBTCwho').text( data.data.tablevars.usdbtc.Source );
                 tmpDate = new Date(parseInt(data.data.tablevars.usdbtc.LastUpdate)*1000);

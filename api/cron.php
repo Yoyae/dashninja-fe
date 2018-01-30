@@ -432,13 +432,13 @@ function generate_blocks24h_json_files($mysqli, $testnet = 0) {
             $perversion[$block['BlockMNProtocol']]['Blocks']++;
             $perversion[$block['BlockMNProtocol']]['Amount'] += $block['BlockMNValue'];
             $perversion[$block['BlockMNProtocol']]['BlocksPayed'] += $block['BlockMNPayed'];
+			$correctpayment = false;
             if (round($block['BlockMNValueRatio'],3) == round($block['BlockMNValueRatioExpected'],3)) {
                 $perversion[$block['BlockMNProtocol']]['BlocksPayedCorrectRatio']++;
                 $correctpayment = true;
             }
             elseif ($block['BlockMNValueRatio'] > 0) {
-                $perversion[$block['BlockMNProtocol']]['BlocksPayedIncorrectRatio']++;
-                $correctpayment = false;
+                $perversion[$block['BlockMNProtocol']]['BlocksPayedIncorrectRatio']++;  
             }
             if ($block['BlockMNProtocol'] == $maxprotocol) {
                 $perminer[$minerkey]['BlocksPayedToCurrentProtocol'] += $block['BlockMNPayed'];

@@ -19,12 +19,12 @@
 
 // Monoeci Ninja Front-End (monoecininja-fe) - Masternode List (v2)
 
-var monoecininjaversion = '2.5.2';
+var monoecininjaversion = '2.5.3';
 var tableLocalNodes = null;
 var tableBlockConsensus = null;
 var tableMNList = null;
 var chartMNVersions = null;
-var monoeciversiondefault = "0.12.2.1";
+var monoeciversiondefault = "0.12.2";
 var monoeciversion = monoeciversiondefault;
 var monoeciversioncheck = monoeciversion;
 var monoeciversionsemaphore = false;
@@ -258,7 +258,8 @@ $(document).ready(function() {
         searching: false,
         dom: "Tfrtp",
         ajax: { url: "/data/nodesstatus-"+monoecininjatestnet+".json",
-            dataSrc: 'data.nodes' },
+            dataSrc: 'data.nodes',
+            cache: true },
         "paging": false,
         columns: [
             {data: "NodeName"},
@@ -352,7 +353,8 @@ $(document).ready(function() {
         responsive: true,
         searching: false,
         ajax: { url: "/data/blocksconsensus-"+monoecininjatestnet+".json",
-            dataSrc: 'data.blocksconsensus' },
+            dataSrc: 'data.blocksconsensus',
+            cache: true },
         "paging": false,
         "order": [[0, "desc"]],
         columns: [
@@ -399,9 +401,9 @@ $(document).ready(function() {
         ],
         "createdRow": function (row, data, index) {
             if (data.Consensus == 1) {
-                $('td', row).eq(1).css({"background-color": "#8FFF8F"});
+                $('td', row).eq(1).removeClass("danger").removeClass("success").addClass("success");
             } else {
-                $('td', row).eq(1).css({"background-color": "#FF8F8F"});
+                $('td', row).eq(1).removeClass("danger").removeClass("success").addClass("danger");
             }
         }
     });
@@ -467,15 +469,15 @@ $(document).ready(function() {
                 uniqueIPs.push( json.data.masternodes[i].MasternodeIP+":"+json.data.masternodes[i].MasternodePort );
             }
             if ((json.data.masternodes[i].Portcheck != false) && json.data.masternodes[i].Portcheck.hasOwnProperty("SubVer")) {
-                if ((json.data.masternodes[i].Portcheck.SubVer.length > 10) && (json.data.masternodes[i].Portcheck.SubVer.substring(0,9) == '/Satoshi:') && (json.data.masternodes[i].Portcheck.SubVer.substring(json.data.masternodes[i].Portcheck.SubVer.length-1) == '/')) {
-                    versioninfo = json.data.masternodes[i].Portcheck.SubVer.substring(9,json.data.masternodes[i].Portcheck.SubVer.indexOf('/',10));
+				if ((json.data.masternodes[i].Portcheck.SubVer.length > 11) && (json.data.masternodes[i].Portcheck.SubVer.substring(0,14) == '/Monoeci Core:') && (json.data.masternodes[i].Portcheck.SubVer.substring(json.data.masternodes[i].Portcheck.SubVer.length-1) == '/')) {
+                        versioninfo = json.data.masternodes[i].Portcheck.SubVer.substring(14,json.data.masternodes[i].Portcheck.SubVer.indexOf('/',14));
                 }
-                else if ((json.data.masternodes[i].Portcheck.SubVer.length > 7) && (json.data.masternodes[i].Portcheck.SubVer.substring(0,6) == '/Core:') && (json.data.masternodes[i].Portcheck.SubVer.substring(json.data.masternodes[i].Portcheck.SubVer.length-1) == '/')) {
-                    versioninfo = json.data.masternodes[i].Portcheck.SubVer.substring(6,json.data.masternodes[i].Portcheck.SubVer.indexOf('/',6));
-                }
-                else if ((json.data.masternodes[i].Portcheck.SubVer.length > 11) && (json.data.masternodes[i].Portcheck.SubVer.substring(0,11) == '/Monoeci Core:') && (json.data.masternodes[i].Portcheck.SubVer.substring(json.data.masternodes[i].Portcheck.SubVer.length-1) == '/')) {
-                    versioninfo = json.data.masternodes[i].Portcheck.SubVer.substring(11,json.data.masternodes[i].Portcheck.SubVer.indexOf('/',11));
-                }
+				else if ((json.data.masternodes[i].Portcheck.SubVer.length > 11) && (json.data.masternodes[i].Portcheck.SubVer.substring(0, 17) == '/monacoCoin Core:') && (json.data.masternodes[i].Portcheck.SubVer.substring(json.data.masternodes[i].Portcheck.SubVer.length - 1) == '/')) {
+					versioninfo = json.data.masternodes[i].Portcheck.SubVer.substring(17, json.data.masternodes[i].Portcheck.SubVer.indexOf('/', 17));
+				}
+				else if ((json.data.masternodes[i].Portcheck.SubVer.length > 11) && (json.data.masternodes[i].Portcheck.SubVer.substring(0, 14) == '/monoeci Core:') && (json.data.masternodes[i].Portcheck.SubVer.substring(json.data.masternodes[i].Portcheck.SubVer.length - 1) == '/')) {
+					versioninfo = json.data.masternodes[i].Portcheck.SubVer.substring(14, json.data.masternodes[i].Portcheck.SubVer.indexOf('/', 14));
+				}
                 else {
                     versioninfo = "Unknown";
                 }
@@ -514,11 +516,16 @@ $(document).ready(function() {
     } );
     tableMNList = $('#mnlist').dataTable( {
         ajax: { url: "/data/masternodeslistfull-"+monoecininjatestnet+".json",
-                dataSrc: 'data.masternodes' },
+                dataSrc: 'data.masternodes',
+            cache: true },
         lengthMenu: [ [50, 100, 250, 500, -1], [50, 100, 250, 500, "All"] ],
         processing: true,
+        responsive: true,
         pageLength: 50,
         columns: [
+            { data: null, orderable: false, render: function ( data, type, row ) {
+                    return ''
+                } },
             { data: null, render: function ( data, type, row ) {
                 var outtxt = '';
                 if (type != 'sort') {
@@ -526,7 +533,7 @@ $(document).ready(function() {
                         var ix = 0;
                         for ( var i=0, ien=monoecininjamndetailvin[monoecininjatestnet].length ; i<ien ; i++ ) {
                             if (ix == 0) {
-                                outtxt += '<a href="'+monoecininjamndetailvin[monoecininjatestnet][0][0].replace('%%a%%',data.MasternodeOutputHash+'-'+data.MasternodeOutputIndex)+'">'+data.MasternodeOutputHash+'-'+data.MasternodeOutputIndex+'</a>';
+                                outtxt += '<a href="'+monoecininjamndetailvin[monoecininjatestnet][0][0].replace('%%a%%',data.MasternodeOutputHash+'-'+data.MasternodeOutputIndex)+'" data-toggle="tooltip" data-placement="left" title="'+data.MasternodeOutputHash+'-'+data.MasternodeOutputIndex+'">'+data.MasternodeOutputHash.substring(0,8)+'<i class="fa fa-ellipsis-h" aria-hidden="true"></i>\n-'+data.MasternodeOutputIndex+'</a>';
                             }
                             else {
                                 outtxt += '<a href="'+monoecininjamndetailvin[monoecininjatestnet][i][0].replace('%%a%%',data.MasternodeOutputHash+'-'+data.MasternodeOutputIndex)+'">['+ix+']</a>';
@@ -535,7 +542,7 @@ $(document).ready(function() {
                         }
                         for ( var i=0, ien=monoecininjatxexplorer[monoecininjatestnet].length ; i<ien ; i++ ) {
                             if (ix == 0) {
-                                outtxt += '<a href="'+monoecininjatxexplorer[monoecininjatestnet][0][0].replace('%%a%%',data.MasternodeOutputHash)+'">'+data.MasternodeOutputHash+'-'+data.MasternodeOutputIndex+'</a>';
+                                outtxt += '<a href="'+monoecininjatxexplorer[monoecininjatestnet][0][0].replace('%%a%%',data.MasternodeOutputHash)+'" data-toggle="tooltip" data-placement="left" title="'+data.MasternodeOutputHash+'-'+data.MasternodeOutputIndex+'">'+data.MasternodeOutputHash.substring(0,8)+'...-'+data.MasternodeOutputIndex+'</a>';
                             }
                             else {
                                 outtxt += '<a href="'+monoecininjatxexplorer[monoecininjatestnet][i][0].replace('%%a%%',data.MasternodeOutputHash)+'">['+ix+']</a>';
@@ -595,6 +602,29 @@ $(document).ready(function() {
                 }
                 return mnip+':'+data.MasternodePort;
             } },
+            { data: null, render: function ( data, type, row) {
+                    var activecount = parseInt(data.ActiveCount);
+                    var inactivecount = parseInt(data.InactiveCount);
+                    var unlistedcount = parseInt(data.UnlistedCount);
+                    var total = activecount+inactivecount+unlistedcount;
+                    var ratio = activecount / total;
+                    var result = ratio;
+                    if (type == 'sort') {
+                        result =  ratio;
+                    } else {
+                        if ( ratio == 1 ) {
+                            result = 'Active';
+                        } else if ( ratio == 0 ) {
+                            result = 'Inactive';
+                        } else if ( unlistedcount > 0 ) {
+                            result = 'Partially Unlisted';
+                        } else {
+                            result = 'Partially Inactive';
+                        }
+                        result += ' ('+Math.round(ratio*100)+'%)';
+                    }
+                    return result;
+                } },
             { data: null, render: function ( data, type, row ) {
                 var txt = "";
                 if (data.Portcheck != false) {
@@ -623,15 +653,15 @@ $(document).ready(function() {
             { data: null, render: function ( data, type, row ) {
                 var versioninfo = '<i>Unknown</i>';
                 if ((data.Portcheck != false) && data.Portcheck.hasOwnProperty("SubVer")) {
-                    if ((data.Portcheck.SubVer.length > 10) && (data.Portcheck.SubVer.substring(0,9) == '/Satoshi:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length-1) == '/')) {
-                        versioninfo = data.Portcheck.SubVer.substring(9,data.Portcheck.SubVer.indexOf('/',10));
+                    if ((data.Portcheck.SubVer.length > 11) && (data.Portcheck.SubVer.substring(0,14) == '/Monoeci Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length-1) == '/')) {
+                        versioninfo = data.Portcheck.SubVer.substring(14,data.Portcheck.SubVer.indexOf('/',14));
                     }
-                    else if ((data.Portcheck.SubVer.length > 7) && (data.Portcheck.SubVer.substring(0,6) == '/Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length-1) == '/')) {
-                        versioninfo = data.Portcheck.SubVer.substring(6,data.Portcheck.SubVer.indexOf('/',6));
-                    }
-                    else if ((data.Portcheck.SubVer.length > 11) && (data.Portcheck.SubVer.substring(0,11) == '/Monoeci Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length-1) == '/')) {
-                        versioninfo = data.Portcheck.SubVer.substring(11,data.Portcheck.SubVer.indexOf('/',11));
-                    }
+					if ((data.Portcheck.SubVer.length > 11) && (data.Portcheck.SubVer.substring(0, 17) == '/monacoCoin Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length - 1) == '/')) {
+						versioninfo = data.Portcheck.SubVer.substring(17, data.Portcheck.SubVer.indexOf('/', 17));
+					}
+					else if ((data.Portcheck.SubVer.length > 11) && (data.Portcheck.SubVer.substring(0, 14) == '/monoeci Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length - 1) == '/')) {
+						versioninfo = data.Portcheck.SubVer.substring(14, data.Portcheck.SubVer.indexOf('/', 14));
+					}
                 }
                 return versioninfo;
             } },
@@ -689,101 +719,75 @@ $(document).ready(function() {
                     return '';
                 }
             } },
-            { data: null, render: function ( data, type, row) {
-                var activecount = parseInt(data.ActiveCount);
-                var inactivecount = parseInt(data.InactiveCount);
-                var unlistedcount = parseInt(data.UnlistedCount);
-                var total = activecount+inactivecount+unlistedcount;
-                var ratio = activecount / total;
-                var result = ratio;
-                if (type == 'sort') {
-                    result =  ratio;
-                } else {
-                    if ( ratio == 1 ) {
-                        result = 'Active';
-                    } else if ( ratio == 0 ) {
-                        result = 'Inactive';
-                    } else if ( unlistedcount > 0 ) {
-                        result = 'Partially Unlisted';
-                    } else {
-                        result = 'Partially Inactive';
-                    }
-                    result += ' ('+Math.round(ratio*100)+'%)';
-                }
-                return result;
-            } },
         ],
         "createdRow": function ( row, data, index ) {
             monoeciversioncheck = getLatestmonoeciVersion();
-            var color = '#FF8F8F';
-            if ( data.Portcheck == false ) {
-                color = '#8F8F8F';
-            }
-            else {
-                if (( data.Portcheck.Result == 'open' ) || ( data.Portcheck.Result == 'rogue' )) {
-                    color = '#8FFF8F';
-                } else if (data.Portcheck.Result == 'unknown') {
-                    color = '#8F8F8F';
-                }
-            }
-            $('td',row).eq(3).css({"background-color":color,"text-align": "center"});
-            color = '#8FFF8F';
-            if ( data.Balance.Value < 1000 ) {
-                color = '#FF8F8F';
-            }
-            $('td',row).eq(6).css({"background-color":color,"text-align": "right"});
-            var versioninfo = "Unknown";
-            if ((data.Portcheck != false) && data.Portcheck.hasOwnProperty("SubVer")) {
-                if ((data.Portcheck.SubVer.length > 10) && (data.Portcheck.SubVer.substring(0, 9) == '/Satoshi:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length - 1) == '/')) {
-                    versioninfo = data.Portcheck.SubVer.substring(9, data.Portcheck.SubVer.indexOf('/', 10));
-                }
-                else if ((data.Portcheck.SubVer.length > 7) && (data.Portcheck.SubVer.substring(0, 6) == '/Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length - 1) == '/')) {
-                    versioninfo = data.Portcheck.SubVer.substring(6, data.Portcheck.SubVer.indexOf('/', 6));
-                }
-                else if ((data.Portcheck.SubVer.length > 11) && (data.Portcheck.SubVer.substring(0, 11) == '/Monoeci Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length - 1) == '/')) {
-                    versioninfo = data.Portcheck.SubVer.substring(11, data.Portcheck.SubVer.indexOf('/', 11));
-                }
-            }
-            if ( versioninfo == "Unknown" ) {
-                color = '#8F8F8F';
-            }
-            else if ( ( versioninfo.substring(0,5) == "0.10." ) || ( versioninfo.substring(0,7) == "0.11." ) ) {
-                color = '#FF8F8F';
-            }
-            else if ( versioninfo == monoeciversioncheck ) {
-                color = '#8FFF8F';
-            }
-            else {
-                color = '#FFFF8F';
-            }
-            $('td',row).eq(4).css({"background-color":color});
-            var curprotocol = parseInt(data.MasternodeProtocol);
-            if ( curprotocol < 70102 ) {
-                color = '#FF8F8F';
-            }
-            else if ( curprotocol == monoecimaxprotocol ) {
-                color = '#8FFF8F';
-            }
-            else {
-                color = '#FFFF8F';
-            }
-            $('td',row).eq(5).css({"background-color":color,"text-align": "right"});
-            var total = data.ActiveCount+data.InactiveCount+data.UnlistedCount;
             var activecount = parseInt(data.ActiveCount);
             var inactivecount = parseInt(data.InactiveCount);
             var unlistedcount = parseInt(data.UnlistedCount);
             var total = activecount+inactivecount+unlistedcount;
             var ratio = activecount / total;
             if (ratio == 1) {
-                color = '#8FFF8F';
+                color = 'success';
             } else if (ratio == 0) {
-                color = '#FF8F8F';
-            } else if (ratio < 0.5) {
-                color = '#ffcb8f';
+                color = 'danger';
             } else {
-                color = '#FFFF8F';
+                color = 'warning';
             }
-            $('td',row).eq(10).css({"background-color":color,"text-align": "center"});
+            $('td',row).eq(4).removeClass("danger").removeClass("success").removeClass("warning").addClass(color).css({"text-align": "center"});
+            var color = 'danger';
+            if ( data.Portcheck == false ) {
+                color = 'warning';
+            }
+            else {
+                if (( data.Portcheck.Result == 'open' ) || ( data.Portcheck.Result == 'rogue' )) {
+                    color = 'success';
+                } else if (data.Portcheck.Result == 'unknown') {
+                    color = 'warning';
+                }
+            }
+            $('td',row).eq(5).removeClass("danger").removeClass("success").removeClass("warning").addClass(color).css({"text-align": "center"});
+            color = 'success';
+            if ( data.Balance.Value < 1000 ) {
+                color = 'danger';
+            }
+            $('td',row).eq(8).removeClass("danger").removeClass("success").addClass(color).css({"text-align": "right"});
+            var versioninfo = "Unknown";
+            if ((data.Portcheck != false) && data.Portcheck.hasOwnProperty("SubVer")) {
+				if ((data.Portcheck.SubVer.length > 11) && (data.Portcheck.SubVer.substring(0,14) == '/Monoeci Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length-1) == '/')) {
+					versioninfo = data.Portcheck.SubVer.substring(14,data.Portcheck.SubVer.indexOf('/',14));
+				}
+				if ((data.Portcheck.SubVer.length > 11) && (data.Portcheck.SubVer.substring(0, 17) == '/monacoCoin Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length - 1) == '/')) {
+					versioninfo = data.Portcheck.SubVer.substring(17, data.Portcheck.SubVer.indexOf('/', 17));
+				}
+				else if ((data.Portcheck.SubVer.length > 11) && (data.Portcheck.SubVer.substring(0, 14) == '/monoeci Core:') && (data.Portcheck.SubVer.substring(data.Portcheck.SubVer.length - 1) == '/')) {
+					versioninfo = data.Portcheck.SubVer.substring(14, data.Portcheck.SubVer.indexOf('/', 14));
+				}
+            }
+            if ( versioninfo == "Unknown" ) {
+                color = 'active';
+            }
+            else if ( ( versioninfo.substring(0,5) == "0.10." ) || ( versioninfo.substring(0,7) == "0.11." ) ) {
+                color = 'danger';
+            }
+            else if ( versioninfo == monoeciversioncheck ) {
+                color = 'success';
+            }
+            else {
+                color = 'danger';
+            }
+            $('td',row).eq(6).removeClass("danger").removeClass("success").removeClass("warning").removeClass("active").addClass(color);
+            var curprotocol = parseInt(data.MasternodeProtocol);
+            if ( curprotocol < 70206 ) {
+                color = 'danger';
+            }
+            else if ( curprotocol == monoecimaxprotocol ) {
+                color = 'success';
+            }
+            else {
+                color = 'warning';
+            }
+            $('td',row).eq(7).removeClass("danger").removeClass("success").addClass(color).css({"text-align": "right"});
         }
     } );
     var mnlistsize = getParameter("mnlistsize");

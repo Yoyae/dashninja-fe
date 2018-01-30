@@ -19,7 +19,7 @@
 
 // Monoeci Ninja Front-End (monoecininja-fe) - Blocks (v2)
 
-var monoecininjaversion = '2.5.1';
+var monoecininjaversion = '2.5.2';
 var tableBlocks = null;
 var tablePerVersion = null;
 var tablePerMiner = null;
@@ -343,7 +343,8 @@ $(document).ready(function(){
       } );
    tableBlocks = $('#blockstable').dataTable( {
         ajax: { url: "/data/blocks24h-"+monoecininjatestnet+".json",
-                dataSrc: 'data.blocks' },
+                dataSrc: 'data.blocks',
+                cache: true },                              
         lengthMenu: [ [20, 70, 136, 272, -1], ["20 (~1h)", "70 (~3h)", "136 (~6h)", "272 (~12h)", "All (24h)"] ],
         pageLength: 20,
         order: [[ 0, "desc" ]],
@@ -409,7 +410,7 @@ $(document).ready(function(){
             { data: null, render: function ( data, type, row ) {
                 if (data.IsSuperBlock) {
                     if (data.BlockMNProtocol == 0) {
-                        return "Monoeci 0.12.0.44+";
+                        return "Monoeci 0.12.2";
                     }
                     else {
                         return dataProtocolDesc[data.BlockMNProtocol];

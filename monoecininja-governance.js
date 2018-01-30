@@ -19,7 +19,7 @@
 
 // Monoeci Ninja Front-End (monoecininja-fe) - Governance
 
-var monoecininjaversion = '1.6.0';
+var monoecininjaversion = '1.6.1';
 var tableGovernance = null;
 var tableBudgetsProjection = null;
 var tableSuperBlocks = null;
@@ -162,7 +162,8 @@ $(document).ready(function(){
             tableSuperBlocksExpected = $('#superblocksexpectedtable').dataTable({
                 ajax: {
                     url: "/data/governancetriggers-" + monoecininjatestnet + ".json",
-                    dataSrc: 'data.governancetriggers'
+                    dataSrc: 'data.governancetriggers',
+                    cache: true                               
                 },
                 paging: false,
                 order: [[0, "desc"]],
@@ -218,7 +219,8 @@ $(document).ready(function(){
     } );
     tableGovernance = $('#proposalsdetailtable').dataTable( {
         ajax: { url: "/data/governanceproposals-"+monoecininjatestnet+".json",
-            dataSrc: 'data.governanceproposals' },
+            dataSrc: 'data.governanceproposals' ,
+            cache: true },                          
         paging: true,
         lengthMenu: [ [20, 50, 100, 200, -1], [20, 50, 100, 200, "All"] ],
         pageLength: 20,
@@ -436,7 +438,7 @@ $(document).ready(function(){
             },
             yAxis: {
                 title: {
-                    text: 'Amount (MONOECI)'
+                    text: 'Amount (XMCC)'
                 },
                 plotLines: [{
                     value: 0,
@@ -445,7 +447,7 @@ $(document).ready(function(){
                 }]
             },
             tooltip: {
-                valueSuffix: 'MONOECI'
+                valueSuffix: 'XMCC'
             },
             legend: {
                 layout: 'vertical',
@@ -471,7 +473,8 @@ $(document).ready(function(){
     } );
     tableSuperBlocks = $('#superblockstable').dataTable( {
         ajax: { url: "/data/blockssuperblocks-"+monoecininjatestnet+".json",
-            dataSrc: 'data.superblocks' },
+            dataSrc: 'data.superblocks' ,
+            cache: true },                     
         paging: true,
         lengthMenu: [ [20, 50, 100, 200, -1], [20, 50, 100, 200, "All"] ],
         pageLength: 20,
